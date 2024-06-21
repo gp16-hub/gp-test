@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package external;
+option go_package="./external;external";
+
+service External {
+  rpc UploadImages(UploadImagesRequest) returns(UploadImagesResponse);
+  rpc CreateTaskForCustomer(CreateTaskForCustomerRequest) returns(CreateTaskForCustomerResponse);
+}
+
+
+message Meta {
+  optional string country = 1;
+  optional string zip_code = 2;
+  optional string language = 3;
+}
+
+message  UploadImagesRequest {
+  optional string folder = 1;
+  optional bool use_filename = 2;
+  optional bool unique_filename = 3;
+  repeated ImagesData images = 4;
+  optional Meta meta = 5;
+}
+
+message  ImagesData {
+  optional string name = 1;
+  optional string data = 2;
+}
+
+message UploadImagesResponseData {
+  optional string asset_id = 1;
+  optional string public_id = 2;
+  optional int32 version = 3;
+  optional string version_id = 4;
+  optional string signature = 5;
+  optional int32 width = 6;
+  optional int32 height = 7;
+  optional string format = 8;
+  optional string resource_type = 9;
+  optional string created_at = 10;
+  repeated string tags = 11;
+  optional int32 bytes = 12;
+  optional string type = 13;
+  optional string etag = 14;
+  optional bool placeholder = 15;
+  optional string url = 16;
+  optional string secure_url = 17;
+  optional string folder = 18;
+  optional string original_filename = 19;
+  optional string api_key = 20;
+}
+
+
+message  UploadImagesResponse {
+  repeated UploadImagesResponseData data = 1;
+}
+
+message  CreateTaskForCustomerRequest {
+  optional string name = 1;
+  repeated Phones phones = 2;
+  repeated Emails emails = 3;
+  optional string order_number = 4;
+  optional string po_number = 5;
+  optional string subject = 6;
+  optional string comment = 7;
+  optional string issue_type = 8;
+  optional string reason = 9;
+  repeated string images = 10;
+  optional Meta meta = 11;
+}
+
+message Emails {
+  optional string original = 1;
+}
+
+message Phones {
+  optional string original = 1;
+  optional string type = 2;
+}
+
+message  CreateTaskForCustomerResponse {
+}
