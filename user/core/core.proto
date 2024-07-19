@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package user.core;
+// https://teams.microsoft.com/l/message/19:meeting_NTQ4MjE1MzMtMTdmMC00ZDA0LTkyMmQtMjUzODdmZDMwZWM0@thread.v2/1720694971485?context=%7B%22contextType%22%3A%22chat%22%7D
+option go_package="./user/core";
+
+service UserService {
+  // Gets a user by ID
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+
+  // Update a user by ID
+  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+}
+
+// Message representing a user
+message User {
+  int32 id = 1;
+  string email = 2;
+	string firstname = 3;
+	string lastname = 4;
+	string channel = 5;
+	string phone = 6;
+}
+
+message Profile {
+	string birthday = 1;
+	string occupation = 2;
+	string housing_type = 3;
+	string home_size = 4;
+	string most_time_spent_location = 5;
+	string annual_household_income = 6;
+	bool display_profile_reward_banner = 7;
+	bool is_initial_record = 8;
+}
+
+message UpdateProfileRequest {
+	string birthday = 1;
+	string occupation = 2;
+	string housing_type = 3;
+	string home_size = 4;
+	string most_time_spent_location = 5;
+	string annual_household_income = 6;
+}
+// Request message for UpdateUser RPC
+message UpdateUserRequest {
+  int32 id = 1;
+  string email = 2;
+	string firstname = 3;
+ string lastname = 4;
+	string phone = 6;
+	string password = 7;
+	string new_password = 8;
+  UpdateProfileRequest profile = 9;
+}
+
+// Response message for UpdateUser RPC
+message UpdateUserResponse {
+  User user = 1;
+  Profile profile = 2;
+}
+
+// Request message for GetUser RPC
+message GetUserRequest {
+  int32 id = 1;
+}
+
+// Response message for GetUser RPC
+message GetUserResponse {
+  User user = 1;
+  Profile profile = 2;
+}
