@@ -15,3 +15,7 @@ protocol
 
 * box: 存放box protocol 相关的文件
 * external: 存放external protocol 相关的文件
+
+## 初始化
+
+* git submodule update --remote protocol

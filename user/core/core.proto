@@ -10,7 +10,10 @@ service UserService {
 
   // Update a user by ID
   rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+
+	rpc GetUserByToken (GetUserByTokenRequest) returns (GetUserByTokenResponse);
 }
+
 
 // Message representing a user
 message User {
@@ -46,7 +49,7 @@ message UpdateUserRequest {
   int32 id = 1;
   string email = 2;
 	string firstname = 3;
- string lastname = 4;
+  string lastname = 4;
 	string phone = 6;
 	string password = 7;
 	string new_password = 8;
@@ -68,4 +71,15 @@ message GetUserRequest {
 message GetUserResponse {
   User user = 1;
   Profile profile = 2;
+}
+
+message GetUserByTokenRequest {
+	optional string token = 1;
+}
+
+message GetUserByTokenResponse {
+	int32 id = 1;
+	string email = 2;
+	string firstname = 3;
+	string lastname = 4;
 }
