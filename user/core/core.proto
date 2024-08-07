@@ -15,12 +15,6 @@ service UserService {
 }
 
 
-message Meta {
-	optional string country = 1;
-	optional string zip_code = 2;
-	optional string language = 3;
-}
-
 // Message representing a user
 message User {
   int32 id = 1;
@@ -55,7 +49,7 @@ message UpdateUserRequest {
   int32 id = 1;
   string email = 2;
 	string firstname = 3;
- string lastname = 4;
+  string lastname = 4;
 	string phone = 6;
 	string password = 7;
 	string new_password = 8;
@@ -80,10 +74,12 @@ message GetUserResponse {
 }
 
 message GetUserByTokenRequest {
-	optional Meta meta = 1;
-	optional string token = 2;
+	optional string token = 1;
 }
 
 message GetUserByTokenResponse {
-	User user = 1;
+	int32 id = 1;
+	string email = 2;
+	string firstname = 3;
+	string lastname = 4;
 }
