@@ -12,6 +12,21 @@ service UserService {
   rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
 
 	rpc GetUserByToken (GetUserByTokenRequest) returns (GetUserByTokenResponse);
+
+	rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+
+	rpc UserAuthToken (UserAuthTokenRequest) returns (UserAuthTokenResponse);
+
+	rpc AuthOrCreateUser (AuthOrCreateUserRequest) returns (AuthOrCreateUserResponse);
+
+	rpc GetUserByQuery (GetUserByQueryRequest) returns (GetUserByQueryResponse);
+
+	rpc SetResetPasswordToken (SetResetPasswordTokenRequest) returns (SetResetPasswordTokenResponse);
+
+	rpc UpdateUserPasswdByToken (UpdateUserPasswdByTokenRequest) returns (UpdateUserPasswdByTokenResponse);
+
+	rpc UserOauthRefreshToken (UserOauthRefreshTokenRequest) returns (UserOauthRefreshTokenResponse);
+
 }
 
 
@@ -74,12 +89,147 @@ message GetUserResponse {
 }
 
 message GetUserByTokenRequest {
+	//  request.headers["X-Spree-Token"] || params[:token]
 	optional string token = 1;
+	// By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
+	// falls back to the `:access_token` or `:bearer_token` params from the `params` object.
+	// Check out the wiki for more information on customization
+	// access_token_methods :from_bearer_authorization, :from_access_token_param, :from_bearer_param
+	// add custom strategy to get access token from X-Access-Token header request.headers["x-access-token"]
+	optional string access_token = 2;
 }
 
 message GetUserByTokenResponse {
-	int32 id = 1;
+	int64 id = 1;
 	string email = 2;
 	string firstname = 3;
 	string lastname = 4;
+}
+
+message ProfileOptional {
+	optional string birthday = 1;
+	optional string occupation = 2;
+	optional string housing_type = 3;
+	optional string home_size = 4;
+	optional string most_time_spent_location = 5;
+	optional string annual_household_income = 6;
+	optional bool display_profile_reward_banner = 7;
+	optional bool is_initial_record = 8;
+}
+
+// Request message for CreateUserRequest RPC
+message CreateUserRequest {
+	optional int32 id = 1;
+	optional string email = 2;
+	optional string firstname = 3;
+	optional string lastname = 4;
+	optional string phone = 6;
+	optional string password = 7;
+	optional string new_password = 8;
+	optional bool system_created = 9;
+	optional string channel = 10;
+	optional ProfileOptional profile = 11;
+
+}
+
+message AccessToken {
+	optional string refresh_token = 1;
+	optional int64 expires_in = 2;
+	optional int64 created_at = 3;
+	optional string access_token = 4;
+}
+
+// Response message for CreateUserResponse RPC
+message CreateUserResponse {
+	optional User user = 1;
+	optional AccessToken access_token = 2;
+}
+
+
+// Request message for CreateUserRequest RPC
+message UserAuthTokenRequest {
+	optional string grant_type = 1;
+	optional string username = 2;
+	optional string password = 3;
+}
+
+
+// Response message for CreateUserResponse RPC
+message UserAuthTokenResponse {
+	optional string refresh_token = 1;
+	optional int64 expires_in = 2;
+	optional int64 created_at = 3;
+	optional string access_token = 4;
+	optional string token_type = 5;
+}
+
+// Request message for CreateUserRequest RPC
+message AuthOrCreateUserRequest {
+	optional string provider = 1;
+	optional string uid = 2;
+	optional string email = 3;
+	optional string firstName = 4;
+	optional string lastName = 5;
+	optional string channel = 6;
+}
+
+// Response message for CreateUserResponse RPC
+message AuthOrCreateUserResponse {
+	optional string refresh_token = 1;
+	optional int64 expires_in = 2;
+	optional int64 created_at = 3;
+	optional string access_token = 4;
+	optional string token_type = 5;
+	optional bool is_new_user = 6;
+}
+
+message GetUserByQueryRequest {
+	optional string email = 1;
+	optional string api_key = 2; // spree api key
+	optional string reset_password_token = 3;
+}
+
+message GetUserByQueryResponse {
+	optional int64 id = 1;
+	optional string email = 2;
+	optional string firstname = 3;
+	optional string lastname = 4;
+	optional string channel = 5;
+
+}
+
+message SetResetPasswordTokenRequest {
+	optional string email = 1;
+	optional bool from_email = 2;
+}
+
+message SetResetPasswordTokenResponse {
+}
+
+
+message UpdateUserPasswdByTokenRequest {
+	optional string reset_password_token = 1;
+	optional string new_password = 2;
+}
+
+message TermsOfUse {
+	optional string accepted_version = 1;
+	optional string accepted_at = 2;
+}
+
+message UpdateUserPasswdByTokenResponse {
+	optional User user = 1;
+	optional TermsOfUse terms_of_use = 2;
+}
+
+message UserOauthRefreshTokenRequest {
+	optional string refresh_token = 1;
+}
+
+message UserOauthRefreshTokenResponse {
+	optional string refresh_token = 1;
+	optional int64 expires_in = 2;
+	optional int64 created_at = 3;
+	optional string access_token = 4;
+	optional string token_type = 5;
 }
