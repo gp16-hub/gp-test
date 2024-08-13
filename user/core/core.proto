@@ -12,6 +12,8 @@ service UserService {
   rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
 
 	rpc GetUserByToken (GetUserByTokenRequest) returns (GetUserByTokenResponse);
+
+	rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
 }
 
 
@@ -74,7 +76,14 @@ message GetUserResponse {
 }
 
 message GetUserByTokenRequest {
+	//  request.headers["X-Spree-Token"] || params[:token]
 	optional string token = 1;
+	// By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
+	// falls back to the `:access_token` or `:bearer_token` params from the `params` object.
+	// Check out the wiki for more information on customization
+	// access_token_methods :from_bearer_authorization, :from_access_token_param, :from_bearer_param
+	// add custom strategy to get access token from X-Access-Token header request.headers["x-access-token"]
+	optional string access_token = 2;
 }
 
 message GetUserByTokenResponse {
@@ -83,3 +92,29 @@ message GetUserByTokenResponse {
 	string firstname = 3;
 	string lastname = 4;
 }
+
+// Request message for CreateUserRequest RPC
+message CreateUserRequest {
+	optional int32 id = 1;
+	optional string email = 2;
+	optional string firstname = 3;
+	optional string lastname = 4;
+	optional string phone = 6;
+	optional string password = 7;
+	optional string new_password = 8;
+	optional bool system_created = 9;
+}
+
+message AccessToken {
+	optional string refresh_token = 1;
+	optional int64 expires_in = 2;
+	optional int64 created_at = 3;
+	optional string access_token = 4;
+}
+
+// Response message for CreateUserResponse RPC
+message CreateUserResponse {
+	User user = 1;
+	AccessToken access_token = 2;
+}
+
