@@ -8,10 +8,10 @@ service Tax {
 }
 
 message TaxRequest {
-  From from = 1;
-  To to = 2;
+  Address from = 1;
+  Address to = 2;
   repeated LineItemsRequest lineItems = 3;
-  ShippingRequest shipping = 4;
+  double shipping = 4;
   bool withCache = 5;
 }
 
@@ -24,15 +24,7 @@ message TaxResponse {
   repeated LineItemsResponse lineItems = 6;
 }
 
-message From {
-  string countryCode = 1;
-  string state = 2;
-  string city = 3;
-  string street = 4;
-  string zip = 5;
-}
-
-message To {
+message Address {
   string countryCode = 1;
   string state = 2;
   string city = 3;
@@ -56,14 +48,8 @@ message LineItemsResponse {
   bool includedInPrice = 5;
 }
 
-message ShippingRequest {
-  double amount = 1;
-  string productTaxCategory = 2;
-}
-
 message ShippingResponse {
   double taxableAmount = 1;
   double taxCollectable = 2;
   double taxRate = 3;
-  bool includedInPrice = 4;
 }
