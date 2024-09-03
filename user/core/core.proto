@@ -422,4 +422,3 @@ message TermsOfUseLog {
   string accepted_version = 4;
   string accepted_at = 5;
 }
-}
