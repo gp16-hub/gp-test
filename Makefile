@@ -18,3 +18,9 @@ check-branch:
 	else \
 		echo  "${RED}protocol are not on the master branch. protocol are on the $(CURRENT_BRANCH) branch.${NC}"; \
 	fi
+
+
+.PHONY:proto-format
+proto-format:
+  # brew install clang-format
+	@./scripts/proto-format.sh

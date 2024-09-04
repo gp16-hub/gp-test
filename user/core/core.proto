@@ -2,118 +2,135 @@ syntax = "proto3";
 
 package user.core;
 
-option go_package="./user/core";
+option go_package = "./user/core";
 
 service UserService {
   // Gets a user by ID
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
 
   // Update a user by ID
-  rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
 
-	// Gets a user address by ID
-	rpc GetUserAddresses (GetUserAddressesRequest) returns (GetUserAddressesResponse);
+  // Gets a user address by ID
+  rpc GetUserAddresses(GetUserAddressesRequest)
+      returns (GetUserAddressesResponse);
 
   // Create a user address by ID
-  rpc CreateUserAddress(CreateUserAddressRequest) returns (CreateUserAddressResponse);
+  rpc CreateUserAddress(CreateUserAddressRequest)
+      returns (CreateUserAddressResponse);
 
   // Delete a user address by ID
-  rpc DeleteUserAddress(DeleteUserAddressRequest) returns (DeleteUserAddressResponse);
-  
+  rpc DeleteUserAddress(DeleteUserAddressRequest)
+      returns (DeleteUserAddressResponse);
+
   // 获取收藏清单项的产品信息
-  rpc GetWishItemVariantInfo (GetWishItemVariantInfoRequest) returns (GetWishItemVariantInfoResponse);
+  rpc GetWishItemVariantInfo(GetWishItemVariantInfoRequest)
+      returns (GetWishItemVariantInfoResponse);
 
   // 批量获取产品信息
-  rpc BatchGetVariantInfo (BatchGetVariantInfoRequest) returns (BatchGetVariantInfoResponse);
+  rpc BatchGetVariantInfo(BatchGetVariantInfoRequest)
+      returns (BatchGetVariantInfoResponse);
 
   // 获取单个产品信息
-  rpc GetVariantInfo (GetVariantInfoRequest) returns (GetVariantInfoResponse);
+  rpc GetVariantInfo(GetVariantInfoRequest) returns (GetVariantInfoResponse);
 
   // 获取收藏清单中的所有产品
-  rpc GetWishItemVariants (GetWishItemVariantsRequest) returns (GetWishItemVariantsResponse);
+  rpc GetWishItemVariants(GetWishItemVariantsRequest)
+      returns (GetWishItemVariantsResponse);
 
   // 删除收藏清单中的某个产品
-  rpc DeleteWishItemVariant (DeleteWishItemVariantRequest) returns (DeleteWishItemVariantResponse);
+  rpc DeleteWishItemVariant(DeleteWishItemVariantRequest)
+      returns (DeleteWishItemVariantResponse);
 
   // 批量添加收藏清单中的产品
-  rpc BatchAddWishItemVariant (BatchAddWishItemVariantRequest) returns (BatchAddWishItemVariantResponse);
+  rpc BatchAddWishItemVariant(BatchAddWishItemVariantRequest)
+      returns (BatchAddWishItemVariantResponse);
 
   // 获取用户收藏的look信息
-  rpc GetWishLooksInfoByUser (GetWishLooksInfoByUserRequest) returns (GetWishLooksInfoByUserResponse);
-  
+  rpc GetWishLooksInfoByUser(GetWishLooksInfoByUserRequest)
+      returns (GetWishLooksInfoByUserResponse);
+
   // 获取收藏look信息
-  rpc GetWishLookInfo (GetWishLookInfoRequest) returns (GetWishLookInfoResponse);
+  rpc GetWishLookInfo(GetWishLookInfoRequest) returns (GetWishLookInfoResponse);
 
   // 批量获取收藏look信息
-  rpc BatchGetWishLookInfo (BatchGetWishLookInfoRequest) returns (BatchGetWishLookInfoResponse);
-  
+  rpc BatchGetWishLookInfo(BatchGetWishLookInfoRequest)
+      returns (BatchGetWishLookInfoResponse);
+
   // 删除收藏look
-  rpc DeleteWishLook (DeleteWishLookRequest) returns (DeleteWishLookResponse);
-  
+  rpc DeleteWishLook(DeleteWishLookRequest) returns (DeleteWishLookResponse);
+
   // 批量添加收藏look
-  rpc BatchAddWishLook (BatchAddWishLookRequest) returns (BatchAddWishLookResponse);
+  rpc BatchAddWishLook(BatchAddWishLookRequest)
+      returns (BatchAddWishLookResponse);
 
   // 获取用户接受的使用协议的日志
-  rpc GetTermsOfUseLogsByUser (GetTermsOfUseLogsByUserRequest) returns (GetTermsOfUseLogsByUserResponse);
+  rpc GetTermsOfUseLogsByUser(GetTermsOfUseLogsByUserRequest)
+      returns (GetTermsOfUseLogsByUserResponse);
 
   // 更新用户接受的使用协议的日志
-  rpc FindOrCreateTermsOfUseLogByUser (FindOrCreateTermsOfUseLogByUserRequest) returns (FindOrCreateTermsOfUseLogByUserResponse);
+  rpc FindOrCreateTermsOfUseLogByUser(FindOrCreateTermsOfUseLogByUserRequest)
+      returns (FindOrCreateTermsOfUseLogByUserResponse);
 
-	rpc GetUserByToken (GetUserByTokenRequest) returns (GetUserByTokenResponse);
+  rpc GetUserByToken(GetUserByTokenRequest) returns (GetUserByTokenResponse);
 
-	rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
 
-	rpc UserAuthToken (UserAuthTokenRequest) returns (UserAuthTokenResponse);
+  rpc UserAuthToken(UserAuthTokenRequest) returns (UserAuthTokenResponse);
 
-	rpc AuthOrCreateUser (AuthOrCreateUserRequest) returns (AuthOrCreateUserResponse);
+  rpc AuthOrCreateUser(AuthOrCreateUserRequest)
+      returns (AuthOrCreateUserResponse);
 
-	rpc GetUserByQuery (GetUserByQueryRequest) returns (GetUserByQueryResponse);
+  rpc GetUserByQuery(GetUserByQueryRequest) returns (GetUserByQueryResponse);
 
-	rpc SetResetPasswordToken (SetResetPasswordTokenRequest) returns (SetResetPasswordTokenResponse);
+  rpc SetResetPasswordToken(SetResetPasswordTokenRequest)
+      returns (SetResetPasswordTokenResponse);
 
-	rpc UpdateUserPasswdByToken (UpdateUserPasswdByTokenRequest) returns (UpdateUserPasswdByTokenResponse);
+  rpc UpdateUserPasswdByToken(UpdateUserPasswdByTokenRequest)
+      returns (UpdateUserPasswdByTokenResponse);
 
-	rpc UserOauthRefreshToken (UserOauthRefreshTokenRequest) returns (UserOauthRefreshTokenResponse);
+  rpc UserOauthRefreshToken(UserOauthRefreshTokenRequest)
+      returns (UserOauthRefreshTokenResponse);
 }
 
 // Message representing a user
 message User {
   uint32 id = 1;
   string email = 2;
-	string firstname = 3;
-	string lastname = 4;
-	string channel = 5;
-	string phone = 6;
+  string firstname = 3;
+  string lastname = 4;
+  string channel = 5;
+  string phone = 6;
 }
 
 message Profile {
-	string birthday = 1;
-	string occupation = 2;
-	string housing_type = 3;
-	string home_size = 4;
-	string most_time_spent_location = 5;
-	string annual_household_income = 6;
-	bool display_profile_reward_banner = 7;
-	bool is_initial_record = 8;
+  string birthday = 1;
+  string occupation = 2;
+  string housing_type = 3;
+  string home_size = 4;
+  string most_time_spent_location = 5;
+  string annual_household_income = 6;
+  bool display_profile_reward_banner = 7;
+  bool is_initial_record = 8;
 }
 
 message UpdateProfileRequest {
-	string birthday = 1;
-	string occupation = 2;
-	string housing_type = 3;
-	string home_size = 4;
-	string most_time_spent_location = 5;
-	string annual_household_income = 6;
+  string birthday = 1;
+  string occupation = 2;
+  string housing_type = 3;
+  string home_size = 4;
+  string most_time_spent_location = 5;
+  string annual_household_income = 6;
 }
 // Request message for UpdateUser RPC
 message UpdateUserRequest {
   uint32 id = 1;
   string email = 2;
-	string firstname = 3;
+  string firstname = 3;
   string lastname = 4;
-	string phone = 6;
-	string password = 7;
-	string new_password = 8;
+  string phone = 6;
+  string password = 7;
+  string new_password = 8;
   UpdateProfileRequest profile = 9;
 }
 
@@ -147,156 +164,157 @@ message GetUserAddressesResponse {
 message UserAddress {
   uint32 id = 1;
   string google_place_id = 2;
-	string firstname = 3;
+  string firstname = 3;
   string lastname = 4;
-	string phone = 5;
-	string alternative_phone = 6;
-	string company = 8;
-	string street = 9;
-	string address1 = 10;
-	string address2 = 11;
-	string city = 12;
-	string zipcode = 13;
-	string country = 14;
-	string state_name = 15;
-	string building_type = 16;
-	string flat = 17;
-	string level = 18;
-	bool is_valid = 19;
-	bool is_shippable = 20;
-	bool is_manual = 21;
-	bool is_temporary = 22;
+  string phone = 5;
+  string alternative_phone = 6;
+  string company = 8;
+  string street = 9;
+  string address1 = 10;
+  string address2 = 11;
+  string city = 12;
+  string zipcode = 13;
+  string country = 14;
+  string state_name = 15;
+  string building_type = 16;
+  string flat = 17;
+  string level = 18;
+  bool is_valid = 19;
+  bool is_shippable = 20;
+  bool is_manual = 21;
+  bool is_temporary = 22;
 }
 
 message DeleteUserAddressResponse {}
 
 message DeleteUserAddressRequest {
-	uint32 id = 1;
-	uint32 user_id = 2;
+  uint32 id = 1;
+  uint32 user_id = 2;
 }
 
 message CreateUserAddressResponse {}
 
 message CreateUserAddressRequest {
   uint32 user_id = 1;
-	optional string google_place_id = 2;
-	string firstname = 3;
-	string lastname = 4;
-	optional string company = 5;
-	optional string street = 6;
-	string address1 = 7;
-	optional string address2 = 8;
-	string city = 9;
-	string zipcode = 10;
-	string country = 11;
-	optional string state_name = 12;
-	optional string building_type = 13;
-	optional string flat = 14;
-	optional string level = 15;
-	string phone = 16;
-	optional string alternative_phone = 17;
+  optional string google_place_id = 2;
+  string firstname = 3;
+  string lastname = 4;
+  optional string company = 5;
+  optional string street = 6;
+  string address1 = 7;
+  optional string address2 = 8;
+  string city = 9;
+  string zipcode = 10;
+  string country = 11;
+  optional string state_name = 12;
+  optional string building_type = 13;
+  optional string flat = 14;
+  optional string level = 15;
+  string phone = 16;
+  optional string alternative_phone = 17;
 }
 
 // GetWishItemProductInfoRequest 定义了获取收藏清单请求
 message GetWishItemVariantInfoRequest {
-    uint32 user_id = 1; // 用户ID
+  uint32 user_id = 1;  // 用户ID
 }
 
 // GetWishItemProductInfoResponse 定义了获取收藏清单响应
 message GetWishItemVariantInfoResponse {
-    repeated VariantInfo variants = 1; // 产品列表
+  repeated VariantInfo variants = 1;  // 产品列表
 }
 
 // BatchGetVariantInfoRequest 定义了获取产品信息请求
 message BatchGetVariantInfoRequest {
-    repeated uint32 variant_id = 1; // 实体ID列表
+  repeated uint32 variant_id = 1;  // 实体ID列表
 }
 
 // BatchGetVariantInfoResponse 定义了获取产品信息响应
 message BatchGetVariantInfoResponse {
-    map<uint32, VariantInfo> variant_id_to_info = 1; // 产品列表，key 为 variant_id
+  map<uint32, VariantInfo> variant_id_to_info =
+      1;  // 产品列表，key 为 variant_id
 }
 
 // GetVariantInfoRequest 定义了获取产品信息请求
 message GetVariantInfoRequest {
-    uint32 variant_id = 1; // 实体ID
+  uint32 variant_id = 1;  // 实体ID
 }
 
 // GetVariantInfoResponse 定义了获取产品信息响应
 message GetVariantInfoResponse {
-    VariantInfo variantInfo = 1; // 产品信息
+  VariantInfo variantInfo = 1;  // 产品信息
 }
 
 // ImageLinks 定义了产品图片的不同尺寸链接
 message ImageLinks {
-    string mini = 1; // 小尺寸图片链接
-    string small = 2; // 小尺寸图片链接
-    string medium = 3; // 中尺寸图片链接
-    string large = 4; // 大尺寸图片链接
-    string mini_x2 = 5; // 小尺寸2倍图片链接
-    string small_x2 = 6; // 小尺寸2倍图片链接
-    string medium_x2 = 7; // 中尺寸2倍图片链接
-    string large_x2 = 8; // 大尺寸2倍图片链接
-    string mini_gray = 9; // 小尺寸灰度图片链接
-    string small_gray = 10; // 小尺寸灰度图片链接
-    string medium_gray = 11; // 中尺寸灰度图片链接
-    string large_gray = 12; // 大尺寸灰度图片链接
-    string mini_x2_gray = 13; // 小尺寸2倍灰度图片链接
-    string small_x2_gray = 14; // 小尺寸2倍灰度图片链接
-    string medium_x2_gray = 15; // 中尺寸2倍灰度图片链接
-    string large_x2_gray = 16; // 大尺寸2倍灰度图片链接
-    string feed = 17; // Feed 图片链接
-    string public = 18; // 公共图片链接
+  string mini = 1;             // 小尺寸图片链接
+  string small = 2;            // 小尺寸图片链接
+  string medium = 3;           // 中尺寸图片链接
+  string large = 4;            // 大尺寸图片链接
+  string mini_x2 = 5;          // 小尺寸2倍图片链接
+  string small_x2 = 6;         // 小尺寸2倍图片链接
+  string medium_x2 = 7;        // 中尺寸2倍图片链接
+  string large_x2 = 8;         // 大尺寸2倍图片链接
+  string mini_gray = 9;        // 小尺寸灰度图片链接
+  string small_gray = 10;      // 小尺寸灰度图片链接
+  string medium_gray = 11;     // 中尺寸灰度图片链接
+  string large_gray = 12;      // 大尺寸灰度图片链接
+  string mini_x2_gray = 13;    // 小尺寸2倍灰度图片链接
+  string small_x2_gray = 14;   // 小尺寸2倍灰度图片链接
+  string medium_x2_gray = 15;  // 中尺寸2倍灰度图片链接
+  string large_x2_gray = 16;   // 大尺寸2倍灰度图片链接
+  string feed = 17;            // Feed 图片链接
+  string public = 18;          // 公共图片链接
 }
 
 // Image 定义了产品图片信息
 message Image {
-    uint32 id = 1; // 图片ID
-    uint32 position = 2; // 图片位置
-    string type = 3; // 图片类型
-    string links = 4; // 图片链接
+  uint32 id = 1;        // 图片ID
+  uint32 position = 2;  // 图片位置
+  string type = 3;      // 图片类型
+  string links = 4;     // 图片链接
 }
 
 // VariantOptionValue 定义了产品变体选项值
 message VariantOptionValue {
-    uint32 option_value_id = 1; // 选项值ID
-    string name = 2; // 选项值名称
-    string presentation = 3; // 选项值展示名称
-    uint32 option_type_id = 4; // 选项类型ID
-    string option_type_name = 5; // 选项类型名称
-    string option_type_presentation = 6; // 选项类型展示名称
+  uint32 option_value_id = 1;           // 选项值ID
+  string name = 2;                      // 选项值名称
+  string presentation = 3;              // 选项值展示名称
+  uint32 option_type_id = 4;            // 选项类型ID
+  string option_type_name = 5;          // 选项类型名称
+  string option_type_presentation = 6;  // 选项类型展示名称
 }
 
 // VariantInfo 定义了产品信息
 message VariantInfo {
-    uint32 variant_id = 1; // 产品ID
-    string name = 2; // 产品名称
-    string sku = 3; // 产品SKU
-    string price = 4; // 产品价格
-    string list_price = 5; // 产品列表价格
-    uint32 product_id = 8; // 产品ID
-    string product_layout = 10; // 产品布局
-    string product_name = 12; // 产品名称
-    string product_type = 13; // 产品类型
-    repeated string badges = 19; // 产品徽章
-    repeated Image images = 20; // 产品图片
-    repeated VariantOptionValue variant_option_values = 21; // 产品变体选项值
+  uint32 variant_id = 1;                                   // 产品ID
+  string name = 2;                                         // 产品名称
+  string sku = 3;                                          // 产品SKU
+  string price = 4;                                        // 产品价格
+  string list_price = 5;                                   // 产品列表价格
+  uint32 product_id = 8;                                   // 产品ID
+  string product_layout = 10;                              // 产品布局
+  string product_name = 12;                                // 产品名称
+  string product_type = 13;                                // 产品类型
+  repeated string badges = 19;                             // 产品徽章
+  repeated Image images = 20;                              // 产品图片
+  repeated VariantOptionValue variant_option_values = 21;  // 产品变体选项值
 }
 
 // GetWishItemsRequest 定义了获取收藏清单请求
 message GetWishItemVariantsRequest {
-    uint32 user_id = 1; // 用户ID
+  uint32 user_id = 1;  // 用户ID
 }
 
 // GetWishItemsResponse 定义了获取收藏清单响应
 message GetWishItemVariantsResponse {
-    repeated uint32 variants = 1; // 变体列表
+  repeated uint32 variants = 1;  // 变体列表
 }
 
 //  AddWishItemRequest 定义了添加收藏清单请求
 message DeleteWishItemVariantRequest {
-    uint32 user_id = 1; // 用户ID
-    uint32 variant_id = 2; // 变体ID
+  uint32 user_id = 1;     // 用户ID
+  uint32 variant_id = 2;  // 变体ID
 }
 
 // AddWishItemResponse 定义了添加收藏清单响应
@@ -304,8 +322,8 @@ message DeleteWishItemVariantResponse {}
 
 // BatchAddWishItemRequest 定义了批量添加收藏清单请求
 message BatchAddWishItemVariantRequest {
-    uint32 user_id = 1; // 用户ID
-    repeated uint32 variant_id = 2; // 变体ID
+  uint32 user_id = 1;              // 用户ID
+  repeated uint32 variant_id = 2;  // 变体ID
 }
 
 // BatchAddWishItemResponse 定义了批量添加收藏清单响应
@@ -313,34 +331,35 @@ message BatchAddWishItemVariantResponse {}
 
 // WishLookInfo 定义了收藏look信息
 message WishLookInfo {
-  string shop_the_look_id = 1; // ShopTheLookId
-  string backgroud_image = 2; // 背景图片
+  string shop_the_look_id = 1;   // ShopTheLookId
+  string backgroud_image = 2;    // 背景图片
+  repeated uint32 variants = 3;  // 变体ID列表
 }
 
 // GetWishLooksInfoByUserRequest 定义了获取收藏look信息请求
 message GetWishLooksInfoByUserRequest {
-    uint32 user_id = 1; // 用户ID
+  uint32 user_id = 1;  // 用户ID
 }
 
 // GetWishLooksInfoByUserResponse 定义了获取收藏look信息响应
 message GetWishLooksInfoByUserResponse {
-    repeated WishLookInfo wish_looks = 1;
+  repeated WishLookInfo wish_looks = 1;
 }
 
 // BatchGetWishLookInfoRequest 定义了批量获取收藏look信息请求
 message BatchGetWishLookInfoRequest {
-    repeated string shop_the_look_id = 1; // ShopTheLookId
+  repeated string shop_the_look_id = 1;  // ShopTheLookId
 }
 
 // BatchGetWishLookInfoResponse 定了批量获取收藏look信息响应
 message BatchGetWishLookInfoResponse {
-    repeated WishLookInfo wish_looks = 1;
+  repeated WishLookInfo wish_looks = 1;
 }
 
 // DeleteWishLookRequest 定义了删除收藏look请求
 message DeleteWishLookRequest {
-    uint32 user_id = 1; // 用户ID
-    string shop_the_look_id = 2; // ShopTheLookId
+  uint32 user_id = 1;           // 用户ID
+  string shop_the_look_id = 2;  // ShopTheLookId
 }
 
 // DeleteWishLookResponse 定义了删除收藏look响应
@@ -348,8 +367,8 @@ message DeleteWishLookResponse {}
 
 // BatchAddWishLookRequest 定义了批量添加收藏look请求
 message BatchAddWishLookRequest {
-    uint32 user_id = 1; // 用户ID
-    map<string, string> look_id_to_image = 2; // lookIdToImage
+  uint32 user_id = 1;                             // 用户ID
+  map<string, WishLookInfo> look_id_to_info = 2;  // lookIdToImage
 }
 
 // BatchAddWishLookResponse 定义了批量添加收藏look响应
@@ -357,7 +376,7 @@ message BatchAddWishLookResponse {}
 
 // GetWishLookInfoResponse 定义了获取收藏look信息响应
 message GetWishLookInfoRequest {
-  string shop_the_look_id = 1; // ShopTheLookId
+  string shop_the_look_id = 1;  // ShopTheLookId
 }
 
 // GetWishLookInfoResponse 定义了获取收藏look信息响应
@@ -366,173 +385,169 @@ message GetWishLookInfoResponse {
 }
 
 message GetTermsOfUseLogsByUserRequest {
-	int32 user_id = 1;
-	string market = 2;
+  int32 user_id = 1;
+  string market = 2;
 }
 
 message GetTermsOfUseLogsByUserResponse {
-	repeated TermsOfUseLog terms_of_use_logs = 1;
+  repeated TermsOfUseLog terms_of_use_logs = 1;
 }
 
 message FindOrCreateTermsOfUseLogByUserRequest {
-	int32 user_id = 1;
-	string market = 2;
-	string accepted_version = 3;
+  int32 user_id = 1;
+  string market = 2;
+  string accepted_version = 3;
 }
 
 message FindOrCreateTermsOfUseLogByUserResponse {
-	TermsOfUseLog terms_of_use_log = 1;
+  TermsOfUseLog terms_of_use_log = 1;
 }
 
 message TermsOfUseLog {
-	int32 id = 1;
-	int32 user_id = 2;
-	string market = 3;
-	string accepted_version = 4;
-	string accepted_at = 5;
+  int32 id = 1;
+  int32 user_id = 2;
+  string market = 3;
+  string accepted_version = 4;
+  string accepted_at = 5;
 }
 
 message GetUserByTokenRequest {
-	//  request.headers["X-Spree-Token"] || params[:token]
-	optional string token = 1;
-	// By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
-	// falls back to the `:access_token` or `:bearer_token` params from the `params` object.
-	// Check out the wiki for more information on customization
-	// access_token_methods :from_bearer_authorization, :from_access_token_param, :from_bearer_param
-	// add custom strategy to get access token from X-Access-Token header request.headers["x-access-token"]
-	optional string access_token = 2;
+  //  request.headers["X-Spree-Token"] || params[:token]
+  optional string token = 1;
+  // By default it retrieves first from the `HTTP_AUTHORIZATION` header, then
+  // falls back to the `:access_token` or `:bearer_token` params from the
+  // `params` object. Check out the wiki for more information on customization
+  // access_token_methods :from_bearer_authorization, :from_access_token_param,
+  // :from_bearer_param add custom strategy to get access token from
+  // X-Access-Token header request.headers["x-access-token"]
+  optional string access_token = 2;
 }
 
 message GetUserByTokenResponse {
-	int64 id = 1;
-	string email = 2;
-	string firstname = 3;
-	string lastname = 4;
+  int64 id = 1;
+  string email = 2;
+  string firstname = 3;
+  string lastname = 4;
 }
 
 message ProfileOptional {
-	optional string birthday = 1;
-	optional string occupation = 2;
-	optional string housing_type = 3;
-	optional string home_size = 4;
-	optional string most_time_spent_location = 5;
-	optional string annual_household_income = 6;
-	optional bool display_profile_reward_banner = 7;
-	optional bool is_initial_record = 8;
+  optional string birthday = 1;
+  optional string occupation = 2;
+  optional string housing_type = 3;
+  optional string home_size = 4;
+  optional string most_time_spent_location = 5;
+  optional string annual_household_income = 6;
+  optional bool display_profile_reward_banner = 7;
+  optional bool is_initial_record = 8;
 }
 
 // Request message for CreateUserRequest RPC
 message CreateUserRequest {
-	optional int32 id = 1;
-	optional string email = 2;
-	optional string firstname = 3;
-	optional string lastname = 4;
-	optional string phone = 6;
-	optional string password = 7;
-	optional string new_password = 8;
-	optional bool system_created = 9;
-	optional string channel = 10;
-	optional ProfileOptional profile = 11;
+  optional int32 id = 1;
+  optional string email = 2;
+  optional string firstname = 3;
+  optional string lastname = 4;
+  optional string phone = 6;
+  optional string password = 7;
+  optional string new_password = 8;
+  optional bool system_created = 9;
+  optional string channel = 10;
+  optional ProfileOptional profile = 11;
 }
 
 message AccessToken {
-	optional string refresh_token = 1;
-	optional int64 expires_in = 2;
-	optional int64 created_at = 3;
-	optional string access_token = 4;
+  optional string refresh_token = 1;
+  optional int64 expires_in = 2;
+  optional int64 created_at = 3;
+  optional string access_token = 4;
 }
 
 // Response message for CreateUserResponse RPC
 message CreateUserResponse {
-	optional User user = 1;
-	optional AccessToken access_token = 2;
+  optional User user = 1;
+  optional AccessToken access_token = 2;
 }
-
 
 // Request message for CreateUserRequest RPC
 message UserAuthTokenRequest {
-	optional string grant_type = 1;
-	optional string username = 2;
-	optional string password = 3;
+  optional string grant_type = 1;
+  optional string username = 2;
+  optional string password = 3;
 }
-
 
 // Response message for CreateUserResponse RPC
 message UserAuthTokenResponse {
-	optional string refresh_token = 1;
-	optional int64 expires_in = 2;
-	optional int64 created_at = 3;
-	optional string access_token = 4;
-	optional string token_type = 5;
+  optional string refresh_token = 1;
+  optional int64 expires_in = 2;
+  optional int64 created_at = 3;
+  optional string access_token = 4;
+  optional string token_type = 5;
 }
 
 // Request message for CreateUserRequest RPC
 message AuthOrCreateUserRequest {
-	optional string provider = 1;
-	optional string uid = 2;
-	optional string email = 3;
-	optional string firstName = 4;
-	optional string lastName = 5;
-	optional string channel = 6;
+  optional string provider = 1;
+  optional string uid = 2;
+  optional string email = 3;
+  optional string firstName = 4;
+  optional string lastName = 5;
+  optional string channel = 6;
 }
 
 // Response message for CreateUserResponse RPC
 message AuthOrCreateUserResponse {
-	optional string refresh_token = 1;
-	optional int64 expires_in = 2;
-	optional int64 created_at = 3;
-	optional string access_token = 4;
-	optional string token_type = 5;
-	optional bool is_new_user = 6;
+  optional string refresh_token = 1;
+  optional int64 expires_in = 2;
+  optional int64 created_at = 3;
+  optional string access_token = 4;
+  optional string token_type = 5;
+  optional bool is_new_user = 6;
 }
 
 message GetUserByQueryRequest {
-	optional string email = 1;
-	optional string api_key = 2; // spree api key
-	optional string reset_password_token = 3;
+  optional string email = 1;
+  optional string api_key = 2;  // spree api key
+  optional string reset_password_token = 3;
 }
 
 message GetUserByQueryResponse {
-	optional int64 id = 1;
-	optional string email = 2;
-	optional string firstname = 3;
-	optional string lastname = 4;
-	optional string channel = 5;
-
+  optional int64 id = 1;
+  optional string email = 2;
+  optional string firstname = 3;
+  optional string lastname = 4;
+  optional string channel = 5;
 }
 
 message SetResetPasswordTokenRequest {
-	optional string email = 1;
-	optional bool from_email = 2;
+  optional string email = 1;
+  optional bool from_email = 2;
 }
 
-message SetResetPasswordTokenResponse {
-}
-
+message SetResetPasswordTokenResponse {}
 
 message UpdateUserPasswdByTokenRequest {
-	optional string reset_password_token = 1;
-	optional string new_password = 2;
+  optional string reset_password_token = 1;
+  optional string new_password = 2;
 }
 
 message TermsOfUse {
-	optional string accepted_version = 1;
-	optional string accepted_at = 2;
+  optional string accepted_version = 1;
+  optional string accepted_at = 2;
 }
 
 message UpdateUserPasswdByTokenResponse {
-	optional User user = 1;
-	optional TermsOfUse terms_of_use = 2;
+  optional User user = 1;
+  optional TermsOfUse terms_of_use = 2;
 }
 
 message UserOauthRefreshTokenRequest {
-	optional string refresh_token = 1;
+  optional string refresh_token = 1;
 }
 
 message UserOauthRefreshTokenResponse {
-	optional string refresh_token = 1;
-	optional int64 expires_in = 2;
-	optional int64 created_at = 3;
-	optional string access_token = 4;
-	optional string token_type = 5;
+  optional string refresh_token = 1;
+  optional int64 expires_in = 2;
+  optional int64 created_at = 3;
+  optional string access_token = 4;
+  optional string token_type = 5;
 }
