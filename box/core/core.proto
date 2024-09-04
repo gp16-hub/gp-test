@@ -1,10 +1,10 @@
 syntax = "proto3";
 
 package box.core;
-option go_package="./box/core;core";
+option go_package = "./box/core;core";
 
 service Core {
-  rpc CreateContact(CreateContactRequest) returns(CreateContactResponse);
+  rpc CreateContact(CreateContactRequest) returns (CreateContactResponse);
 }
 
 message Meta {
@@ -13,7 +13,7 @@ message Meta {
   optional string language = 3;
 }
 
-message  CreateContactRequest {
+message CreateContactRequest {
   optional string name = 1;
   optional string issue_type = 2;
   optional string subject = 3;
@@ -24,11 +24,9 @@ message  CreateContactRequest {
   optional string ticket_id = 8;
   optional string error_message = 9;
   optional string po_number = 10;
-  optional string data = 11; // JSONB field
-  repeated string  image_urls = 12;
+  optional string data = 11;  // JSONB field
+  repeated string image_urls = 12;
   optional Meta meta = 13;
 }
 
-
-message  CreateContactResponse {
-}
+message CreateContactResponse {}

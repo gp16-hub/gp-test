@@ -1,12 +1,12 @@
 syntax = "proto3";
 
 package external;
-option go_package="./external;external";
+option go_package = "./external;external";
 
 service External {
-  rpc CreateTaskForCustomer(CreateTaskForCustomerRequest) returns(CreateTaskForCustomerResponse);
+  rpc CreateTaskForCustomer(CreateTaskForCustomerRequest)
+      returns (CreateTaskForCustomerResponse);
 }
-
 
 message Meta {
   optional string country = 1;
@@ -14,8 +14,7 @@ message Meta {
   optional string language = 3;
 }
 
-
-message  CreateTaskForCustomerRequest {
+message CreateTaskForCustomerRequest {
   optional string name = 1;
   repeated Phones phones = 2;
   repeated Emails emails = 3;
@@ -38,5 +37,4 @@ message Phones {
   optional string type = 2;
 }
 
-message  CreateTaskForCustomerResponse {
-}
+message CreateTaskForCustomerResponse {}
