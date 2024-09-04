@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package promotion;
+option go_package="./promotion";
+
+service PromotionService {
+    rpc GetPromotion(GetPromotionRequest) returns (GetPromotionResponse) {}
+}
+
+message GetPromotionRequest {
+    int32 id = 1;
+}
+
+message GetPromotionResponse {
+    Promotion promotion = 1;
+}
+
+message Promotion {
+    int32 id = 1;
+    string name = 2;
+    string description = 3;
+}
