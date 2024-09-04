@@ -424,7 +424,7 @@ message GetUserByTokenRequest {
 }
 
 message GetUserByTokenResponse {
-  int64 id = 1;
+  uint32 id = 1;
   string email = 2;
   string firstname = 3;
   string lastname = 4;
@@ -443,7 +443,7 @@ message ProfileOptional {
 
 // Request message for CreateUserRequest RPC
 message CreateUserRequest {
-  optional int32 id = 1;
+  optional uint32 id = 1;
   optional string email = 2;
   optional string firstname = 3;
   optional string lastname = 4;
@@ -511,7 +511,7 @@ message GetUserByQueryRequest {
 }
 
 message GetUserByQueryResponse {
-  optional int64 id = 1;
+  optional uint32 id = 1;
   optional string email = 2;
   optional string firstname = 3;
   optional string lastname = 4;
