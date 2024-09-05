@@ -23,17 +23,6 @@ service UserService {
   rpc DeleteUserAddress(DeleteUserAddressRequest)
       returns (DeleteUserAddressResponse);
 
-  // 获取收藏清单项的产品信息
-  rpc GetWishItemVariantInfo(GetWishItemVariantInfoRequest)
-      returns (GetWishItemVariantInfoResponse);
-
-  // 批量获取产品信息
-  rpc BatchGetVariantInfo(BatchGetVariantInfoRequest)
-      returns (BatchGetVariantInfoResponse);
-
-  // 获取单个产品信息
-  rpc GetVariantInfo(GetVariantInfoRequest) returns (GetVariantInfoResponse);
-
   // 获取收藏清单中的所有产品
   rpc GetWishItemVariants(GetWishItemVariantsRequest)
       returns (GetWishItemVariantsResponse);
@@ -49,13 +38,6 @@ service UserService {
   // 获取用户收藏的look信息
   rpc GetWishLooksInfoByUser(GetWishLooksInfoByUserRequest)
       returns (GetWishLooksInfoByUserResponse);
-
-  // 获取收藏look信息
-  rpc GetWishLookInfo(GetWishLookInfoRequest) returns (GetWishLookInfoResponse);
-
-  // 批量获取收藏look信息
-  rpc BatchGetWishLookInfo(BatchGetWishLookInfoRequest)
-      returns (BatchGetWishLookInfoResponse);
 
   // 删除收藏look
   rpc DeleteWishLook(DeleteWishLookRequest) returns (DeleteWishLookResponse);
@@ -214,37 +196,6 @@ message CreateUserAddressRequest {
   optional string alternative_phone = 17;
 }
 
-// GetWishItemProductInfoRequest 定义了获取收藏清单请求
-message GetWishItemVariantInfoRequest {
-  uint32 user_id = 1;  // 用户ID
-}
-
-// GetWishItemProductInfoResponse 定义了获取收藏清单响应
-message GetWishItemVariantInfoResponse {
-  repeated VariantInfo variants = 1;  // 产品列表
-}
-
-// BatchGetVariantInfoRequest 定义了获取产品信息请求
-message BatchGetVariantInfoRequest {
-  repeated uint32 variant_id = 1;  // 实体ID列表
-}
-
-// BatchGetVariantInfoResponse 定义了获取产品信息响应
-message BatchGetVariantInfoResponse {
-  map<uint32, VariantInfo> variant_id_to_info =
-      1;  // 产品列表，key 为 variant_id
-}
-
-// GetVariantInfoRequest 定义了获取产品信息请求
-message GetVariantInfoRequest {
-  uint32 variant_id = 1;  // 实体ID
-}
-
-// GetVariantInfoResponse 定义了获取产品信息响应
-message GetVariantInfoResponse {
-  VariantInfo variantInfo = 1;  // 产品信息
-}
-
 // ImageLinks 定义了产品图片的不同尺寸链接
 message ImageLinks {
   string mini = 1;             // 小尺寸图片链接
@@ -346,16 +297,6 @@ message GetWishLooksInfoByUserResponse {
   repeated WishLookInfo wish_looks = 1;
 }
 
-// BatchGetWishLookInfoRequest 定义了批量获取收藏look信息请求
-message BatchGetWishLookInfoRequest {
-  repeated string shop_the_look_id = 1;  // ShopTheLookId
-}
-
-// BatchGetWishLookInfoResponse 定了批量获取收藏look信息响应
-message BatchGetWishLookInfoResponse {
-  repeated WishLookInfo wish_looks = 1;
-}
-
 // DeleteWishLookRequest 定义了删除收藏look请求
 message DeleteWishLookRequest {
   uint32 user_id = 1;           // 用户ID
@@ -373,16 +314,6 @@ message BatchAddWishLookRequest {
 
 // BatchAddWishLookResponse 定义了批量添加收藏look响应
 message BatchAddWishLookResponse {}
-
-// GetWishLookInfoResponse 定义了获取收藏look信息响应
-message GetWishLookInfoRequest {
-  string shop_the_look_id = 1;  // ShopTheLookId
-}
-
-// GetWishLookInfoResponse 定义了获取收藏look信息响应
-message GetWishLookInfoResponse {
-  WishLookInfo wish_look = 1;
-}
 
 message GetTermsOfUseLogsByUserRequest {
   uint32 user_id = 1;
