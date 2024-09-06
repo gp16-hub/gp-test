@@ -50,6 +50,10 @@ service UserService {
   rpc GetTermsOfUseLogsByUser(GetTermsOfUseLogsByUserRequest)
       returns (GetTermsOfUseLogsByUserResponse);
 
+  // 获取用户最新接受的使用协议日志
+  rpc GetLatestTermsOfUseLogByUser(GetLatestTermsOfUseLogByUserRequest)
+      returns (GetLatestTermsOfUseLogByUserResponse);
+
   // 更新用户接受的使用协议的日志
   rpc FindOrCreateTermsOfUseLogByUser(FindOrCreateTermsOfUseLogByUserRequest)
       returns (FindOrCreateTermsOfUseLogByUserResponse);
@@ -322,6 +326,14 @@ message GetTermsOfUseLogsByUserRequest {
 
 message GetTermsOfUseLogsByUserResponse {
   repeated TermsOfUseLog terms_of_use_logs = 1;
+}
+
+message GetLatestTermsOfUseLogByUserRequest {
+  uint32 user_id = 1;
+}
+
+message GetLatestTermsOfUseLogByUserResponse {
+  TermsOfUseLog terms_of_use_log = 1;
 }
 
 message FindOrCreateTermsOfUseLogByUserRequest {
