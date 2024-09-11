@@ -135,6 +135,8 @@ message GetUserRequest {
 message GetUserResponse {
   User user = 1;
   Profile profile = 2;
+  optional string country = 3;
+  optional uint32 crusader_id = 4;
 }
 
 // Request message for GetUser RPC
