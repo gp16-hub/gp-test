@@ -546,25 +546,25 @@ message GetUserSubscriptionRequest {
 }
 
 message GetUserSubscriptionResponse {
-  repeated Subscription subscriptions = 1;
+  Subscription subscription = 1;
 }
 
 message UpdateUserSubscriptionRequest {
   uint32 user_id = 1;
-  repeated Subscription subscriptions = 2;
+  Subscription subscription = 2;
 }
 
 message UpdateUserSubscriptionResponse {
-  repeated Subscription subscriptions = 1;
+  Subscription subscription = 1;
 }
 
 message CreateUserSubscriptionRequest {
   uint32 user_id = 1;
-  repeated Subscription subscriptions = 2;
+  Subscription subscription = 2;
 }
 
 message CreateUserSubscriptionResponse {
-  repeated Subscription subscriptions = 1;
+  Subscription subscription = 1;
 }
 
 message CreateSubscriptionAttemptsRequest {
