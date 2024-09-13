@@ -77,6 +77,24 @@ service UserService {
 
   rpc UserOauthRefreshToken(UserOauthRefreshTokenRequest)
       returns (UserOauthRefreshTokenResponse);
+
+  rpc GetUserSubscription(GetUserSubscriptionRequest)
+      returns (GetUserSubscriptionResponse);
+
+  rpc UpdateUserSubscription(UpdateUserSubscriptionRequest)
+      returns (UpdateUserSubscriptionResponse);
+
+  rpc CreateUserSubscription(CreateUserSubscriptionRequest)
+      returns (CreateUserSubscriptionResponse);
+
+  rpc CreateSubscriptionAttempts(CreateSubscriptionAttemptsRequest)
+      returns (CreateSubscriptionAttemptsResponse);
+
+  rpc SelectSubscriptionAttempts(SelectSubscriptionAttemptsRequest)
+      returns (SelectSubscriptionAttemptsResponse);
+
+  rpc UpdateSubscriptionAttempts(UpdateSubscritionAttemptsRequest)
+      returns (UpdateSubscritionAttemptsResponse);
 }
 
 // Message representing a user
@@ -495,4 +513,91 @@ message UserOauthRefreshTokenResponse {
   optional int64 created_at = 3;
   optional string access_token = 4;
   optional string token_type = 5;
+}
+
+message NotificationValue {
+  bool email = 1;
+  bool sms = 2;
+  bool web = 3;
+}
+
+message NotificationSettings {
+  NotificationValue promotions = 1;
+  NotificationValue new_arrivals = 2;
+  NotificationValue order_updates = 3;
+  NotificationValue llt = 4;
+}
+
+message Subscription {
+  uint32 id = 1;
+  string email = 2;
+  uint32 user_id = 3;
+  NotificationSettings notification_settings = 4;
+  string unsubscribe_reason = 5;
+  string source = 6;
+  string extra = 7;
+  string created_at = 8;
+  string updated_at = 9;
+  string deleted_at = 10;
+}
+
+message GetUserSubscriptionRequest {
+  uint32 user_id = 1;
+}
+
+message GetUserSubscriptionResponse {
+  repeated Subscription subscriptions = 1;
+}
+
+message UpdateUserSubscriptionRequest {
+  uint32 user_id = 1;
+  repeated Subscription subscriptions = 2;
+}
+
+message UpdateUserSubscriptionResponse {
+  repeated Subscription subscriptions = 1;
+}
+
+message CreateUserSubscriptionRequest {
+  uint32 user_id = 1;
+  repeated Subscription subscriptions = 2;
+}
+
+message CreateUserSubscriptionResponse {
+  repeated Subscription subscriptions = 1;
+}
+
+message CreateSubscriptionAttemptsRequest {
+  uint32 subscription_id = 1;
+  string extra = 2;
+  string source = 3;
+}
+
+message SubscriptionAttempt {
+  uint32 id = 1;
+  uint32 subscription_id = 2;
+  string extra = 3;
+  string source = 4;
+  int64 execute_at = 5;
+}
+
+message CreateSubscriptionAttemptsResponse {
+    SubscriptionAttempt attempt = 1;
+}
+
+message SelectSubscriptionAttemptsRequest {
+  string source = 1;
+  int64 execute_at = 2;
+}
+
+message SelectSubscriptionAttemptsResponse {
+  repeated SubscriptionAttempt attempts = 1;
+}
+
+message UpdateSubscritionAttemptsRequest {
+  repeated SubscriptionAttempt attempts = 1;
+}
+
+message UpdateSubscritionAttemptsResponse {
+  repeated SubscriptionAttempt attempts = 1;
 }
