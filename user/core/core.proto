@@ -87,6 +87,9 @@ service UserService {
   rpc CreateUserSubscription(CreateUserSubscriptionRequest)
       returns (CreateUserSubscriptionResponse);
 
+  rpc FindOrCreateUserSubscription(FindOrCreateUserSubscriptionRequest)
+      returns (FindOrCreateUserSubscriptionResponse);
+
   rpc CreateSubscriptionAttempts(CreateSubscriptionAttemptsRequest)
       returns (CreateSubscriptionAttemptsResponse);
 
@@ -603,4 +606,15 @@ message UpdateSubscritionAttemptsRequest {
 
 message UpdateSubscritionAttemptsResponse {
   repeated SubscriptionAttempt attempts = 1;
+}
+
+message FindOrCreateUserSubscriptionRequest {
+  uint32 user_id = 1;
+  string email = 2;
+  string source = 3;
+  string extra = 4;
+}
+
+message FindOrCreateUserSubscriptionResponse {
+  Subscription subscription = 1;
 }
