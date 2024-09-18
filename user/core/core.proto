@@ -543,6 +543,7 @@ message Subscription {
 
 message GetUserSubscriptionRequest {
   uint32 user_id = 1;
+  string email = 2;
 }
 
 message GetUserSubscriptionResponse {
