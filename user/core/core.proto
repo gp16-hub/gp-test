@@ -542,7 +542,8 @@ message GetUserSubscriptionResponse {
 
 message UpdateUserSubscriptionRequest {
   uint32 user_id = 1;
-  Subscription subscription = 2;
+  string email = 2;
+  Subscription subscription = 3;
 }
 
 message UpdateUserSubscriptionResponse {
