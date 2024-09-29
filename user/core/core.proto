@@ -576,7 +576,7 @@ message SubscriptionAttempt {
 }
 
 message CreateSubscriptionAttemptsResponse {
-    SubscriptionAttempt attempt = 1;
+  SubscriptionAttempt attempt = 1;
 }
 
 message SelectSubscriptionAttemptsRequest {
@@ -601,6 +601,7 @@ message FindOrCreateUserSubscriptionRequest {
   string email = 2;
   string source = 3;
   string extra = 4;
+  bool signup_select_subscription = 5;
 }
 
 message FindOrCreateUserSubscriptionResponse {
