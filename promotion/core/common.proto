@@ -18,6 +18,7 @@ enum AdminErrorCode {
   InvalidFileFormat = 10502202;          // 文件格式非法
   CategoryNameAlreadyExists = 10502203;  // 分类名称已存在
   CategoryHasChild = 10502204;           // 分类下有子分类
+  CategoryUpperIDNotExist = 10502205;    // 上级分类不存在
 }
 
 // ApiErrorCode 10501000～10501999
