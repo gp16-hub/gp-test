@@ -1,22 +1,116 @@
 syntax = "proto3";
 
 package promotion;
-option go_package="./promotion";
+option go_package = "./promotion";
 
 service PromotionService {
-    rpc GetPromotion(GetPromotionRequest) returns (GetPromotionResponse) {}
+  rpc AddPromotionToEmails(AddPromotionToEmailsReq)
+      returns (AddPromotionToEmailsRsp) {}
+
+  // promotion
+  rpc ListPromotion(ListPromotionReq) returns (ListPromotionRsp) {}
+  rpc CreatePromotion(CreatePromotionReq) returns (CreatePromotionRsp) {}
 }
 
-message GetPromotionRequest {
-    int32 id = 1;
+message CreatePromotionReq {
+  string name = 1;
+  int32 type = 2;
+  int64 category_id = 3;
+  string creator = 4;
+  uint32 start_time = 5;
+  uint32 end_time = 6;
+  string description = 7;
+  int32 status = 8;
+  string json_conf = 9;
+  int32 approval_status = 10;
 }
 
-message GetPromotionResponse {
-    Promotion promotion = 1;
+message CreatePromotionRsp {
+  int64 promotion_id = 1;
+}
+
+message Page {
+  int32 page = 1;
+  int32 page_size = 2;
+}
+
+message Sort {
+  string sort_by = 1;
+  string sort_order = 2;
+}
+
+message Filter {
+  string name = 1;
+  string creator = 2;
+  string category = 3;
+  string country = 4;
+  uint32 start_time = 5;
+  uint32 end_time = 6;
+}
+
+message ListPromotionReq {
+  Page page = 1;
+  Sort sort = 2;
+  Filter filter = 3;
+  string market = 4;
+}
+
+message Category {
+  int64 id = 1;
+  string name = 2;
+}
+
+message TimePeriod {
+  uint32 start_time = 1;
+  uint32 end_time = 2;
 }
 
 message Promotion {
-    int32 id = 1;
-    string name = 2;
-    string description = 3;
+  int64 id = 1;
+  string name = 2;
+  int32 type = 3;
+  Category category = 4;
+  string creator = 5;
+  TimePeriod time = 6;
+  int32 status = 7;
+}
+
+message ListPromotionRsp {
+  repeated Promotion promotions = 1;
+}
+
+message AddPromotionToEmailsReq {
+  int64 promotion_id = 1;
+  repeated string emails = 2;
+}
+
+message AddPromotionToEmailsRsp {}
+
+message FileInfo {
+  int64 id = 1;
+  string name = 2;
+  uint32 type = 3;
+  string md5 = 4;
+  uint32 total_num = 5;
+  uint32 valid_num = 6;
+  uint32 invalid_num = 7;
+  bytes valid_data = 8;
+  bytes invalid_data = 9;
+}
+
+message AddUserFileReq {
+  int32 user_id = 1;
+  FileInfo file_info = 2;
+}
+
+message AddUserFileRsp {}
+
+message GetUserFileReq {
+  int32 user_id = 1;
+  string file_md5 = 2;
+}
+
+message GetUserFileRsp {
+  int32 user_id = 1;
+  FileInfo file_info = 2;
 }
