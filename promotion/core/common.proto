@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package promotion;
+option go_package = "./promotion";
+
+// ErrorCode 10502000 - 10502199
+// 通用, admin api core都可以使用
+enum ErrorCode {
+  ErrorCodeOK = 0;
+  RecordNotFound = 10502000;    // record not found
+  PromotionNotFound = 10502001; // promotion not found
+}
+
+// AdminErrorCode 10502200～10502999
+enum AdminErrorCode {
+  AdminErrorCodeOK = 0;
+  InvalidFileField = 10502201;  // 文件字段非法
+  InvalidFileFormat = 10502202; // 文件格式非法
+}
+
+// ApiErrorCode 10501000～10501999
+enum ApiErrorCode {
+  ApiErrorCodeOK = 0;
+}
+
+// CoreErrorCode 10503000～10503999
+enum CoreErrorCode {
+  CoreErrorCodeOK = 0;
+  FieldRequired = 10503000; // 字段必填
+}
