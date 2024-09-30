@@ -7,15 +7,17 @@ option go_package = "./promotion";
 // 通用, admin api core都可以使用
 enum ErrorCode {
   ErrorCodeOK = 0;
-  RecordNotFound = 10502000;    // record not found
-  PromotionNotFound = 10502001; // promotion not found
+  RecordNotFound = 10502000;     // record not found
+  PromotionNotFound = 10502001;  // promotion not found
 }
 
 // AdminErrorCode 10502200～10502999
 enum AdminErrorCode {
   AdminErrorCodeOK = 0;
-  InvalidFileField = 10502201;  // 文件字段非法
-  InvalidFileFormat = 10502202; // 文件格式非法
+  InvalidFileField = 10502201;           // 文件字段非法
+  InvalidFileFormat = 10502202;          // 文件格式非法
+  CategoryNameAlreadyExists = 10502203;  // 分类名称已存在
+  CategoryHasChild = 10502204;           // 分类下有子分类
 }
 
 // ApiErrorCode 10501000～10501999
@@ -26,5 +28,5 @@ enum ApiErrorCode {
 // CoreErrorCode 10503000～10503999
 enum CoreErrorCode {
   CoreErrorCodeOK = 0;
-  FieldRequired = 10503000; // 字段必填
+  FieldRequired = 10503000;  // 字段必填
 }
