@@ -525,7 +525,7 @@ message Subscription {
   bytes notification_settings = 4;
   string unsubscribe_reason = 5;
   string source = 6;
-  string extra = 7;
+  bytes extra = 7;
   string created_at = 8;
   string updated_at = 9;
   string deleted_at = 10;
@@ -600,7 +600,7 @@ message FindOrCreateUserSubscriptionRequest {
   uint32 user_id = 1;
   string email = 2;
   string source = 3;
-  string extra = 4;
+  bytes extra = 4;
   bool unsubscribe = 5;
 }
 
