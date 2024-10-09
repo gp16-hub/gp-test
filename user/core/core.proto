@@ -89,15 +89,6 @@ service UserService {
 
   rpc FindOrCreateUserSubscription(FindOrCreateUserSubscriptionRequest)
       returns (FindOrCreateUserSubscriptionResponse);
-
-  rpc CreateSubscriptionAttempts(CreateSubscriptionAttemptsRequest)
-      returns (CreateSubscriptionAttemptsResponse);
-
-  rpc SelectSubscriptionAttempts(SelectSubscriptionAttemptsRequest)
-      returns (SelectSubscriptionAttemptsResponse);
-
-  rpc UpdateSubscriptionAttempts(UpdateSubscritionAttemptsRequest)
-      returns (UpdateSubscritionAttemptsResponse);
 }
 
 // Message representing a user
@@ -561,39 +552,12 @@ message CreateUserSubscriptionResponse {
   Subscription subscription = 1;
 }
 
-message CreateSubscriptionAttemptsRequest {
-  uint32 subscription_id = 1;
-  string extra = 2;
-  string source = 3;
-}
-
 message SubscriptionAttempt {
   uint32 id = 1;
   uint32 subscription_id = 2;
   string extra = 3;
   string source = 4;
   int64 execute_at = 5;
-}
-
-message CreateSubscriptionAttemptsResponse {
-  SubscriptionAttempt attempt = 1;
-}
-
-message SelectSubscriptionAttemptsRequest {
-  string source = 1;
-  int64 execute_at = 2;
-}
-
-message SelectSubscriptionAttemptsResponse {
-  repeated SubscriptionAttempt attempts = 1;
-}
-
-message UpdateSubscritionAttemptsRequest {
-  repeated SubscriptionAttempt attempts = 1;
-}
-
-message UpdateSubscritionAttemptsResponse {
-  repeated SubscriptionAttempt attempts = 1;
 }
 
 message FindOrCreateUserSubscriptionRequest {
