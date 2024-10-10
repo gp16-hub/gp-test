@@ -184,6 +184,7 @@ message UserAddress {
   bool is_manual = 21;
   bool is_temporary = 22;
   string building_name = 23;
+  string street_number = 24;
 }
 
 message DeleteUserAddressResponse {}
@@ -214,6 +215,7 @@ message CreateUserAddressRequest {
   string phone = 16;
   optional string alternative_phone = 17;
   optional string building_name = 18;
+  optional string street_number = 19;
 }
 
 // ImageLinks 定义了产品图片的不同尺寸链接
