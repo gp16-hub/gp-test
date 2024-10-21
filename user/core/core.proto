@@ -89,15 +89,6 @@ service UserService {
 
   rpc FindOrCreateUserSubscription(FindOrCreateUserSubscriptionRequest)
       returns (FindOrCreateUserSubscriptionResponse);
-
-  rpc CreateSubscriptionAttempts(CreateSubscriptionAttemptsRequest)
-      returns (CreateSubscriptionAttemptsResponse);
-
-  rpc SelectSubscriptionAttempts(SelectSubscriptionAttemptsRequest)
-      returns (SelectSubscriptionAttemptsResponse);
-
-  rpc UpdateSubscriptionAttempts(UpdateSubscritionAttemptsRequest)
-      returns (UpdateSubscritionAttemptsResponse);
 }
 
 // Message representing a user
@@ -192,6 +183,8 @@ message UserAddress {
   bool is_shippable = 20;
   bool is_manual = 21;
   bool is_temporary = 22;
+  string building_name = 23;
+  string street_number = 24;
 }
 
 message DeleteUserAddressResponse {}
@@ -221,6 +214,8 @@ message CreateUserAddressRequest {
   optional string level = 15;
   string phone = 16;
   optional string alternative_phone = 17;
+  optional string building_name = 18;
+  optional string street_number = 19;
 }
 
 // ImageLinks 定义了产品图片的不同尺寸链接
@@ -525,7 +520,7 @@ message Subscription {
   bytes notification_settings = 4;
   string unsubscribe_reason = 5;
   string source = 6;
-  string extra = 7;
+  bytes extra = 7;
   string created_at = 8;
   string updated_at = 9;
   string deleted_at = 10;
@@ -561,12 +556,6 @@ message CreateUserSubscriptionResponse {
   Subscription subscription = 1;
 }
 
-message CreateSubscriptionAttemptsRequest {
-  uint32 subscription_id = 1;
-  string extra = 2;
-  string source = 3;
-}
-
 message SubscriptionAttempt {
   uint32 id = 1;
   uint32 subscription_id = 2;
@@ -575,32 +564,11 @@ message SubscriptionAttempt {
   int64 execute_at = 5;
 }
 
-message CreateSubscriptionAttemptsResponse {
-  SubscriptionAttempt attempt = 1;
-}
-
-message SelectSubscriptionAttemptsRequest {
-  string source = 1;
-  int64 execute_at = 2;
-}
-
-message SelectSubscriptionAttemptsResponse {
-  repeated SubscriptionAttempt attempts = 1;
-}
-
-message UpdateSubscritionAttemptsRequest {
-  repeated SubscriptionAttempt attempts = 1;
-}
-
-message UpdateSubscritionAttemptsResponse {
-  repeated SubscriptionAttempt attempts = 1;
-}
-
 message FindOrCreateUserSubscriptionRequest {
   uint32 user_id = 1;
   string email = 2;
   string source = 3;
-  string extra = 4;
+  bytes extra = 4;
   bool unsubscribe = 5;
 }
 
