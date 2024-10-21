@@ -19,6 +19,7 @@ enum AdminErrorCode {
   CategoryNameAlreadyExists = 10502203;  // 分类名称已存在
   CategoryHasChild = 10502204;           // 分类下有子分类
   CategoryUpperIDNotExist = 10502205;    // 上级分类不存在
+  CategoryHasPromotion = 10502206;       // 分类下有活动
 }
 
 // ApiErrorCode 10501000～10501999
