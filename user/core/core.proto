@@ -126,7 +126,7 @@ message UpdateUserRequest {
   string email = 2;
   string firstname = 3;
   string lastname = 4;
-  string phone = 6;
+  optional string phone = 6;
   string password = 7;
   string new_password = 8;
   UpdateProfileRequest profile = 9;
