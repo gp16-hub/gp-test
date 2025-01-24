@@ -24,3 +24,7 @@ check-branch:
 proto-format:
   # brew install clang-format
 	@./scripts/proto-format.sh
+
+.PHONY:gen
+gen:
+	@./scripts/gen.sh
