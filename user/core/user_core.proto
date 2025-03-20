@@ -463,6 +463,7 @@ message AuthOrCreateUserResponse {
   optional string access_token = 4;
   optional string token_type = 5;
   optional bool is_new_user = 6;
+  optional User user = 7;
 }
 
 message GetUserByQueryRequest {
