@@ -15,6 +15,10 @@ service UserService {
   rpc GetUserAddresses(GetUserAddressesRequest)
       returns (GetUserAddressesResponse);
 
+  // Update a user address
+  rpc UpdateUserAddress(UpdateUserAddressRequest)
+      returns (UpdateUserAddressResponse);
+
   // Create a user address by ID
   rpc CreateUserAddress(CreateUserAddressRequest)
       returns (CreateUserAddressResponse);
@@ -160,6 +164,13 @@ message GetUserAddressesRequest {
 message GetUserAddressesResponse {
   repeated UserAddress addresses = 1;
 }
+
+message UpdateUserAddressRequest {
+  optional uint32 user_id = 1;
+  optional UserAddress address = 2;
+}
+
+message UpdateUserAddressResponse {}
 
 message UserAddress {
   uint32 id = 1;
