@@ -93,6 +93,10 @@ service UserService {
 
   rpc FindOrCreateUserSubscription(FindOrCreateUserSubscriptionRequest)
       returns (FindOrCreateUserSubscriptionResponse);
+  
+  // Get birthday user of current month
+  rpc GetBirthdayUsersOfCurrentMonth(GetBirthdayUsersOfCurrentMonthRequest) 
+    returns (GetBirthdayUsersOfCurrentMonthResponse);
 }
 
 // Message representing a user
@@ -586,4 +590,14 @@ message FindOrCreateUserSubscriptionRequest {
 
 message FindOrCreateUserSubscriptionResponse {
   Subscription subscription = 1;
+}
+
+message GetBirthdayUsersOfCurrentMonthRequest {
+  uint32 page = 1;  // 分页页码
+  uint32 page_size = 2;  // 分页大小
+}
+
+message GetBirthdayUsersOfCurrentMonthResponse {
+  repeated string emails = 1;  // 当月生日用户的邮箱列表
+  uint32 total_count = 2;  // 总用户数
 }
