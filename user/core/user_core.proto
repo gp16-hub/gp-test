@@ -94,7 +94,7 @@ service UserService {
   rpc FindOrCreateUserSubscription(FindOrCreateUserSubscriptionRequest)
       returns (FindOrCreateUserSubscriptionResponse);
   
-  // Get birthday user of current month
+  // Get birthday users of current month
   rpc GetBirthdayUsersOfCurrentMonth(GetBirthdayUsersOfCurrentMonthRequest) 
     returns (GetBirthdayUsersOfCurrentMonthResponse);
 }
