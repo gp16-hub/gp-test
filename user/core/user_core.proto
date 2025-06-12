@@ -27,6 +27,9 @@ service UserService {
   rpc DeleteUserAddress(DeleteUserAddressRequest)
       returns (DeleteUserAddressResponse);
 
+  // Gets address by address ID
+  rpc GetAddressByID(GetAddressByIDRequest) returns (GetAddressByIDResponse);
+
   // 获取收藏清单中的所有产品
   rpc GetWishItemVariants(GetWishItemVariantsRequest)
       returns (GetWishItemVariantsResponse);
@@ -93,10 +96,10 @@ service UserService {
 
   rpc FindOrCreateUserSubscription(FindOrCreateUserSubscriptionRequest)
       returns (FindOrCreateUserSubscriptionResponse);
-  
+
   // Get birthday users of current month
-  rpc GetBirthdayUsersOfCurrentMonth(GetBirthdayUsersOfCurrentMonthRequest) 
-    returns (GetBirthdayUsersOfCurrentMonthResponse);
+  rpc GetBirthdayUsersOfCurrentMonth(GetBirthdayUsersOfCurrentMonthRequest)
+      returns (GetBirthdayUsersOfCurrentMonthResponse);
 }
 
 // Message representing a user
@@ -147,9 +150,7 @@ message UpdateUserResponse {
 }
 
 // Request message for GetUser RPC
-message GetUserRequest {
-  uint32 id = 1;
-}
+message GetUserRequest { uint32 id = 1; }
 
 // Response message for GetUser RPC
 message GetUserResponse {
@@ -160,14 +161,10 @@ message GetUserResponse {
 }
 
 // Request message for GetUser RPC
-message GetUserAddressesRequest {
-  uint32 id = 1;
-}
+message GetUserAddressesRequest { uint32 id = 1; }
 
 // Response message for GetUser RPC
-message GetUserAddressesResponse {
-  repeated UserAddress addresses = 1;
-}
+message GetUserAddressesResponse { repeated UserAddress addresses = 1; }
 
 message UpdateUserAddressRequest {
   optional uint32 user_id = 1;
@@ -175,6 +172,14 @@ message UpdateUserAddressRequest {
 }
 
 message UpdateUserAddressResponse {}
+
+message GetAddressByIDRequest {
+  uint32 address_id = 1; // Address ID
+}
+
+message GetAddressByIDResponse {
+  UserAddress address = 1; // Address details
+}
 
 message UserAddress {
   uint32 id = 1;
@@ -200,6 +205,7 @@ message UserAddress {
   bool is_temporary = 22;
   string building_name = 23;
   string street_number = 24;
+  int64 created_at = 25; // seconds, utc, timestamp
 }
 
 message DeleteUserAddressResponse {}
@@ -235,74 +241,74 @@ message CreateUserAddressRequest {
 
 // ImageLinks 定义了产品图片的不同尺寸链接
 message ImageLinks {
-  string mini = 1;             // 小尺寸图片链接
-  string small = 2;            // 小尺寸图片链接
-  string medium = 3;           // 中尺寸图片链接
-  string large = 4;            // 大尺寸图片链接
-  string mini_x2 = 5;          // 小尺寸2倍图片链接
-  string small_x2 = 6;         // 小尺寸2倍图片链接
-  string medium_x2 = 7;        // 中尺寸2倍图片链接
-  string large_x2 = 8;         // 大尺寸2倍图片链接
-  string mini_gray = 9;        // 小尺寸灰度图片链接
-  string small_gray = 10;      // 小尺寸灰度图片链接
-  string medium_gray = 11;     // 中尺寸灰度图片链接
-  string large_gray = 12;      // 大尺寸灰度图片链接
-  string mini_x2_gray = 13;    // 小尺寸2倍灰度图片链接
-  string small_x2_gray = 14;   // 小尺寸2倍灰度图片链接
-  string medium_x2_gray = 15;  // 中尺寸2倍灰度图片链接
-  string large_x2_gray = 16;   // 大尺寸2倍灰度图片链接
-  string feed = 17;            // Feed 图片链接
-  string public = 18;          // 公共图片链接
+  string mini = 1;            // 小尺寸图片链接
+  string small = 2;           // 小尺寸图片链接
+  string medium = 3;          // 中尺寸图片链接
+  string large = 4;           // 大尺寸图片链接
+  string mini_x2 = 5;         // 小尺寸2倍图片链接
+  string small_x2 = 6;        // 小尺寸2倍图片链接
+  string medium_x2 = 7;       // 中尺寸2倍图片链接
+  string large_x2 = 8;        // 大尺寸2倍图片链接
+  string mini_gray = 9;       // 小尺寸灰度图片链接
+  string small_gray = 10;     // 小尺寸灰度图片链接
+  string medium_gray = 11;    // 中尺寸灰度图片链接
+  string large_gray = 12;     // 大尺寸灰度图片链接
+  string mini_x2_gray = 13;   // 小尺寸2倍灰度图片链接
+  string small_x2_gray = 14;  // 小尺寸2倍灰度图片链接
+  string medium_x2_gray = 15; // 中尺寸2倍灰度图片链接
+  string large_x2_gray = 16;  // 大尺寸2倍灰度图片链接
+  string feed = 17;           // Feed 图片链接
+  string public = 18;         // 公共图片链接
 }
 
 // Image 定义了产品图片信息
 message Image {
-  uint32 id = 1;        // 图片ID
-  uint32 position = 2;  // 图片位置
-  string type = 3;      // 图片类型
-  string links = 4;     // 图片链接
+  uint32 id = 1;       // 图片ID
+  uint32 position = 2; // 图片位置
+  string type = 3;     // 图片类型
+  string links = 4;    // 图片链接
 }
 
 // VariantOptionValue 定义了产品变体选项值
 message VariantOptionValue {
-  uint32 option_value_id = 1;           // 选项值ID
-  string name = 2;                      // 选项值名称
-  string presentation = 3;              // 选项值展示名称
-  uint32 option_type_id = 4;            // 选项类型ID
-  string option_type_name = 5;          // 选项类型名称
-  string option_type_presentation = 6;  // 选项类型展示名称
+  uint32 option_value_id = 1;          // 选项值ID
+  string name = 2;                     // 选项值名称
+  string presentation = 3;             // 选项值展示名称
+  uint32 option_type_id = 4;           // 选项类型ID
+  string option_type_name = 5;         // 选项类型名称
+  string option_type_presentation = 6; // 选项类型展示名称
 }
 
 // VariantInfo 定义了产品信息
 message VariantInfo {
-  uint32 variant_id = 1;                                   // 产品ID
-  string name = 2;                                         // 产品名称
-  string sku = 3;                                          // 产品SKU
-  string price = 4;                                        // 产品价格
-  string list_price = 5;                                   // 产品列表价格
-  uint32 product_id = 8;                                   // 产品ID
-  string product_layout = 10;                              // 产品布局
-  string product_name = 12;                                // 产品名称
-  string product_type = 13;                                // 产品类型
-  repeated string badges = 19;                             // 产品徽章
-  repeated Image images = 20;                              // 产品图片
-  repeated VariantOptionValue variant_option_values = 21;  // 产品变体选项值
+  uint32 variant_id = 1;                                  // 产品ID
+  string name = 2;                                        // 产品名称
+  string sku = 3;                                         // 产品SKU
+  string price = 4;                                       // 产品价格
+  string list_price = 5;                                  // 产品列表价格
+  uint32 product_id = 8;                                  // 产品ID
+  string product_layout = 10;                             // 产品布局
+  string product_name = 12;                               // 产品名称
+  string product_type = 13;                               // 产品类型
+  repeated string badges = 19;                            // 产品徽章
+  repeated Image images = 20;                             // 产品图片
+  repeated VariantOptionValue variant_option_values = 21; // 产品变体选项值
 }
 
 // GetWishItemsRequest 定义了获取收藏清单请求
 message GetWishItemVariantsRequest {
-  uint32 user_id = 1;  // 用户ID
+  uint32 user_id = 1; // 用户ID
 }
 
 // GetWishItemsResponse 定义了获取收藏清单响应
 message GetWishItemVariantsResponse {
-  repeated uint32 variants = 1;  // 变体列表
+  repeated uint32 variants = 1; // 变体列表
 }
 
 //  AddWishItemRequest 定义了添加收藏清单请求
 message DeleteWishItemVariantRequest {
-  uint32 user_id = 1;     // 用户ID
-  uint32 variant_id = 2;  // 变体ID
+  uint32 user_id = 1;    // 用户ID
+  uint32 variant_id = 2; // 变体ID
 }
 
 // AddWishItemResponse 定义了添加收藏清单响应
@@ -310,8 +316,8 @@ message DeleteWishItemVariantResponse {}
 
 // BatchAddWishItemRequest 定义了批量添加收藏清单请求
 message BatchAddWishItemVariantRequest {
-  uint32 user_id = 1;              // 用户ID
-  repeated uint32 variant_id = 2;  // 变体ID
+  uint32 user_id = 1;             // 用户ID
+  repeated uint32 variant_id = 2; // 变体ID
 }
 
 // BatchAddWishItemResponse 定义了批量添加收藏清单响应
@@ -319,25 +325,23 @@ message BatchAddWishItemVariantResponse {}
 
 // WishLookInfo 定义了收藏look信息
 message WishLookInfo {
-  string shop_the_look_id = 1;   // ShopTheLookId
-  string backgroud_image = 2;    // 背景图片
-  repeated uint32 variants = 3;  // 变体ID列表
+  string shop_the_look_id = 1;  // ShopTheLookId
+  string backgroud_image = 2;   // 背景图片
+  repeated uint32 variants = 3; // 变体ID列表
 }
 
 // GetWishLooksInfoByUserRequest 定义了获取收藏look信息请求
 message GetWishLooksInfoByUserRequest {
-  uint32 user_id = 1;  // 用户ID
+  uint32 user_id = 1; // 用户ID
 }
 
 // GetWishLooksInfoByUserResponse 定义了获取收藏look信息响应
-message GetWishLooksInfoByUserResponse {
-  repeated WishLookInfo wish_looks = 1;
-}
+message GetWishLooksInfoByUserResponse { repeated WishLookInfo wish_looks = 1; }
 
 // DeleteWishLookRequest 定义了删除收藏look请求
 message DeleteWishLookRequest {
-  uint32 user_id = 1;           // 用户ID
-  string shop_the_look_id = 2;  // ShopTheLookId
+  uint32 user_id = 1;          // 用户ID
+  string shop_the_look_id = 2; // ShopTheLookId
 }
 
 // DeleteWishLookResponse 定义了删除收藏look响应
@@ -345,8 +349,8 @@ message DeleteWishLookResponse {}
 
 // BatchAddWishLookRequest 定义了批量添加收藏look请求
 message BatchAddWishLookRequest {
-  uint32 user_id = 1;                             // 用户ID
-  map<string, WishLookInfo> look_id_to_info = 2;  // lookIdToImage
+  uint32 user_id = 1;                            // 用户ID
+  map<string, WishLookInfo> look_id_to_info = 2; // lookIdToImage
 }
 
 // BatchAddWishLookResponse 定义了批量添加收藏look响应
@@ -361,9 +365,7 @@ message GetTermsOfUseLogsByUserResponse {
   repeated TermsOfUseLog terms_of_use_logs = 1;
 }
 
-message GetLatestTermsOfUseLogByUserRequest {
-  uint32 user_id = 1;
-}
+message GetLatestTermsOfUseLogByUserRequest { uint32 user_id = 1; }
 
 message GetLatestTermsOfUseLogByUserResponse {
   TermsOfUseLog terms_of_use_log = 1;
@@ -483,7 +485,7 @@ message AuthOrCreateUserResponse {
 
 message GetUserByQueryRequest {
   optional string email = 1;
-  optional string api_key = 2;  // spree api key
+  optional string api_key = 2; // spree api key
   optional string reset_password_token = 3;
 }
 
@@ -517,9 +519,7 @@ message UpdateUserPasswdByTokenResponse {
   optional TermsOfUse terms_of_use = 2;
 }
 
-message UserOauthRefreshTokenRequest {
-  optional string refresh_token = 1;
-}
+message UserOauthRefreshTokenRequest { optional string refresh_token = 1; }
 
 message UserOauthRefreshTokenResponse {
   optional string refresh_token = 1;
@@ -547,9 +547,7 @@ message GetUserSubscriptionRequest {
   string email = 2;
 }
 
-message GetUserSubscriptionResponse {
-  Subscription subscription = 1;
-}
+message GetUserSubscriptionResponse { Subscription subscription = 1; }
 
 message UpdateUserSubscriptionRequest {
   uint32 user_id = 1;
@@ -557,9 +555,7 @@ message UpdateUserSubscriptionRequest {
   Subscription subscription = 3;
 }
 
-message UpdateUserSubscriptionResponse {
-  Subscription subscription = 1;
-}
+message UpdateUserSubscriptionResponse { Subscription subscription = 1; }
 
 message CreateUserSubscriptionRequest {
   uint32 user_id = 1;
@@ -568,9 +564,7 @@ message CreateUserSubscriptionRequest {
   string extra = 4;
 }
 
-message CreateUserSubscriptionResponse {
-  Subscription subscription = 1;
-}
+message CreateUserSubscriptionResponse { Subscription subscription = 1; }
 
 message SubscriptionAttempt {
   uint32 id = 1;
@@ -588,16 +582,14 @@ message FindOrCreateUserSubscriptionRequest {
   bool unsubscribe = 5;
 }
 
-message FindOrCreateUserSubscriptionResponse {
-  Subscription subscription = 1;
-}
+message FindOrCreateUserSubscriptionResponse { Subscription subscription = 1; }
 
 message GetBirthdayUsersOfCurrentMonthRequest {
-  uint32 page = 1;  // 分页页码
-  uint32 page_size = 2;  // 分页大小
+  uint32 page = 1;      // 分页页码
+  uint32 page_size = 2; // 分页大小
 }
 
 message GetBirthdayUsersOfCurrentMonthResponse {
-  repeated string emails = 1;  // 当月生日用户的邮箱列表
-  uint32 total_count = 2;  // 总用户数
+  repeated string emails = 1; // 当月生日用户的邮箱列表
+  uint32 total_count = 2;     // 总用户数
 }
