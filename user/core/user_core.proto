@@ -26,6 +26,10 @@ service UserService {
   // Delete a user address by ID
   rpc DeleteUserAddress(DeleteUserAddressRequest)
       returns (DeleteUserAddressResponse);
+  
+  // Gets address by address ID
+  rpc GetAddressByID(GetAddressByIDRequest)
+      returns (GetAddressByIDResponse);
 
   // 获取收藏清单中的所有产品
   rpc GetWishItemVariants(GetWishItemVariantsRequest)
@@ -176,6 +180,14 @@ message UpdateUserAddressRequest {
 
 message UpdateUserAddressResponse {}
 
+message GetAddressByIDRequest {
+  uint32 id = 1;  // Address ID
+}
+
+message GetAddressByIDResponse {
+  UserAddress address = 1;  // Address details
+}
+
 message UserAddress {
   uint32 id = 1;
   string google_place_id = 2;
@@ -200,6 +212,7 @@ message UserAddress {
   bool is_temporary = 22;
   string building_name = 23;
   string street_number = 24;
+  int64 created_at = 25;  // seconds, utc, timestamp
 }
 
 message DeleteUserAddressResponse {}
