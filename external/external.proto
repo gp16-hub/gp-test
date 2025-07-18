@@ -9,6 +9,8 @@ service External {
   rpc CreateSubscriptionListForCustomer(
       CreateSubscriptionListForCustomerRequest)
       returns (CreateSubscriptionListForCustomerResponse);
+  rpc UnsubscribedEmailList(UnsubscribedEmailListRequest)
+      returns (UnsubscribedEmailListResponse);
 }
 
 message Meta {
@@ -51,3 +53,13 @@ message CreateSubscriptionListForCustomerRequest {
 }
 
 message CreateSubscriptionListForCustomerResponse {}
+
+message UnsubscribedEmailListRequest {
+  optional string list = 1;  // klaviyo list id
+  optional string pageCursorLink = 2; // Cursor for pagination
+}
+
+message UnsubscribedEmailListResponse {
+  repeated string emails = 1;  // List of unsubscribed emails
+  optional string pageCursorLink = 2;  // Cursor for pagination
+}
