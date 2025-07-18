@@ -13,6 +13,7 @@ message TaxRequest {
   repeated LineItemsRequest lineItems = 3;
   double shipping = 4;
   bool withCache = 5;
+  string TaxJarInternalID = 6;
 }
 
 message TaxResponse {
