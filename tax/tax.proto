@@ -8,45 +8,45 @@ service Tax {
 }
 
 message TaxRequest {
-  Address from = 1;
-  Address to = 2;
+  Address from = 1; // Order warehouse address, only used in US, not required for other markets
+  Address to = 2; // required, order ship_address
   repeated LineItemsRequest lineItems = 3;
-  double shipping = 4;
-  bool withCache = 5;
-  string TaxJarInternalID = 6;
+  double shipping = 4;  // US is used and taxjar is required; SG and AU do not use this parameter for the time being, put shipments (including shipping) in items for calculation
+  bool withCache = 5; // false if not passed, cache calculation is used, only used in US
+  string TaxJarInternalID = 6; // optional, TaxJar internal ID, used to identify the tax exemption result, only used in US
 }
 
 message TaxResponse {
-  double totalAmount = 1;
-  double taxableAmount = 2;
-  double taxCollectable = 3;
-  double taxRate = 4;
+  double totalAmount = 1; // Order total
+  double taxableAmount = 2; // Taxable amount
+  double taxCollectable = 3; // Tax receivable
+  double taxRate = 4; // Tax rate
   ShippingResponse shipping = 5;
   repeated LineItemsResponse lineItems = 6;
 }
 
 message Address {
-  string countryCode = 1;
-  string state = 2;
+  string countryCode = 1; // required, will affect tax calculation
+  string state = 2; // required, will affect tax calculation, CA required, SG/AU optional
   string city = 3;
   string street = 4;
-  string zip = 5;
+  string zip = 5; // US required, will affect tax calculation; SG/AU optional
 }
 
 message LineItemsRequest {
   string id = 1;
   int64 quantity = 2;
-  string productTaxCategory = 3;
+  string productTaxCategory = 3;  // tax Category name, used to find the corresponding tax code. If not passed, the default value is an empty string.
   double unitPrice = 4;
   double discount = 5;
 }
 
 message LineItemsResponse {
-  string id = 1;
+  string id = 1; // Item id, which may be item type + primary key id, derived from crusader
   double taxableAmount = 2;
   double taxCollectable = 3;
   double taxRate = 4;
-  bool includedInPrice = 5;
+  bool includedInPrice = 5; // Whether tax is included in the price, derived from tax rate
 }
 
 message ShippingResponse {
