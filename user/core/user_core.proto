@@ -28,7 +28,7 @@ service UserService {
       returns (DeleteUserAddressResponse);
 
   // Gets address by address ID
-  rpc GetAddressByID(GetAddressByIDRequest) returns (GetAddressByIDResponse);
+  rpc GetAddressById(GetAddressByIdRequest) returns (GetAddressByIdResponse);
 
   // 获取收藏清单中的所有产品
   rpc GetWishItemVariants(GetWishItemVariantsRequest)
@@ -173,11 +173,11 @@ message UpdateUserAddressRequest {
 
 message UpdateUserAddressResponse {}
 
-message GetAddressByIDRequest {
+message GetAddressByIdRequest {
   uint32 address_id = 1; // Address ID
 }
 
-message GetAddressByIDResponse {
+message GetAddressByIdResponse {
   UserAddress address = 1; // Address details
 }
 
