@@ -108,40 +108,40 @@ jobs:
         cp -r generated/* target-repo/
         
         # 创建 README
-        cat > target-repo/README.md << EOF
-# Proto Client Code
-
-This repository contains auto-generated Go client code from proto files.
-
-## Generated from
-- Repository: gp16-hub/gp-test
-- Branch: \${{ github.ref_name }}
-- Commit: \${{ github.sha }}
-
-## Last Updated
-\${{ github.event.head_commit.timestamp }}
-
-## Structure
-\`\`\`
-.
-├── box/           # Box service client
-├── external/      # External service client  
-├── promotion/     # Promotion service client
-├── tax/          # Tax service client
-├── user/         # User service client
-└── go.mod        # Go module file
-\`\`\`
-
-## Usage
-
-\`\`\`go
-import (
-    "github.com/gp16-hub/gp-test-proto-code/user/core"
-    "github.com/gp16-hub/gp-test-proto-code/box/core"
-    // ... other imports
-)
-\`\`\`
-EOF
+        {
+          echo "# Proto Client Code"
+          echo ""
+          echo "This repository contains auto-generated Go client code from proto files."
+          echo ""
+          echo "## Generated from"
+          echo "- Repository: gp16-hub/gp-test"
+          echo "- Branch: ${{ github.ref_name }}"
+          echo "- Commit: ${{ github.sha }}"
+          echo ""
+          echo "## Last Updated"
+          echo "${{ github.event.head_commit.timestamp }}"
+          echo ""
+          echo "## Structure"
+          echo "\`\`\`"
+          echo "."
+          echo "├── box/           # Box service client"
+          echo "├── external/      # External service client"
+          echo "├── promotion/     # Promotion service client"
+          echo "├── tax/          # Tax service client"
+          echo "├── user/         # User service client"
+          echo "└── go.mod        # Go module file"
+          echo "\`\`\`"
+          echo ""
+          echo "## Usage"
+          echo ""
+          echo "\`\`\`go"
+          echo "import ("
+          echo "    \"github.com/gp16-hub/gp-test-proto-code/user/core\""
+          echo "    \"github.com/gp16-hub/gp-test-proto-code/box/core\""
+          echo "    // ... other imports"
+          echo ")"
+          echo "\`\`\`"
+        } > target-repo/README.md
 
     - name: Commit and push changes
       run: |
