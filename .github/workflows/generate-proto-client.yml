@@ -1,0 +1,171 @@
+name: Generate Proto Client Code
+
+on:
+  push:
+    branches: [ master, main ]
+    paths:
+      - '**/*.proto'
+  pull_request:
+    branches: [ master, main ]
+    paths:
+      - '**/*.proto'
+  workflow_dispatch:
+
+jobs:
+  generate-proto-client:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout source repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Install protoc
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y protobuf-compiler
+
+    - name: Install goctl
+      run: |
+        go install github.com/zeromicro/go-zero/tools/goctl@latest
+
+    - name: Install protoc-gen-go and protoc-gen-go-grpc
+      run: |
+        go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+        go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+    - name: Create output directory
+      run: mkdir -p generated
+
+    - name: Generate Go client code from proto files
+      run: |
+        echo "Generating client code for all proto files..."
+        
+        # 为每个 proto 文件生成客户端代码
+        find . -name "*.proto" -type f | while read proto_file; do
+          echo "Processing: $proto_file"
+          
+          # 检查 proto 文件是否包含 service 定义
+          if grep -q "service " "$proto_file"; then
+            echo "Found service definition in $proto_file"
+            
+            # 获取相对路径的目录
+            proto_dir=$(dirname "$proto_file")
+            proto_name=$(basename "$proto_file" .proto)
+            
+            # 创建输出目录
+            output_dir="generated/${proto_dir#./}"
+            mkdir -p "$output_dir"
+            
+            # 使用 goctl 生成 RPC 客户端代码
+            if goctl rpc protoc "$proto_file" \
+              --go_out="$output_dir" \
+              --go-grpc_out="$output_dir" \
+              --zrpc_out="$output_dir" \
+              --style=goZero; then
+              echo "✅ Successfully generated for $proto_file"
+            else
+              echo "⚠️ Warning: Failed to generate for $proto_file"
+            fi
+          else
+            echo "ℹ️ Skipping $proto_file (no service definition found)"
+          fi
+        done
+
+    - name: Generate go.mod file
+      run: |
+        cd generated
+        echo "module github.com/gp16-hub/gp-test-proto-code" > go.mod
+        echo "" >> go.mod
+        echo "go 1.21" >> go.mod
+        echo "" >> go.mod
+        echo "require (" >> go.mod
+        echo "    github.com/zeromicro/go-zero v1.6.0" >> go.mod
+        echo "    google.golang.org/grpc v1.60.0" >> go.mod
+        echo "    google.golang.org/protobuf v1.32.0" >> go.mod
+        echo ")" >> go.mod
+
+    - name: Checkout target repository
+      uses: actions/checkout@v4
+      with:
+        repository: gp16-hub/gp-test-proto-code
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: target-repo
+
+    - name: Copy generated files to target repository
+      run: |
+        # 清空目标仓库的内容（除了 .git）
+        find target-repo -mindepth 1 -name ".git" -prune -o -type f -delete
+        find target-repo -mindepth 1 -name ".git" -prune -o -type d -empty -delete
+        
+        # 复制生成的文件
+        cp -r generated/* target-repo/
+        
+        # 创建 README
+        cat > target-repo/README.md << 'EOF'
+# Proto Client Code
+
+This repository contains auto-generated Go client code from proto files.
+
+## Generated from
+- Repository: gp16-hub/gp-test
+- Branch: ${{ github.ref_name }}
+- Commit: ${{ github.sha }}
+
+## Last Updated
+${{ github.event.head_commit.timestamp }}
+
+## Structure
+```
+.
+├── box/           # Box service client
+├── external/      # External service client  
+├── promotion/     # Promotion service client
+├── tax/          # Tax service client
+├── user/         # User service client
+└── go.mod        # Go module file
+```
+
+## Usage
+
+```go
+import (
+    "github.com/gp16-hub/gp-test-proto-code/user/core"
+    "github.com/gp16-hub/gp-test-proto-code/box/core"
+    // ... other imports
+)
+```
+EOF
+
+    - name: Commit and push changes
+      run: |
+        cd target-repo
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        git add .
+        
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Auto-update proto client code from ${{ github.repository }}@${{ github.sha }}"
+          git push
+        fi
+
+    - name: Create summary
+      run: |
+        echo "## 🎉 Proto Client Code Generation Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Generated Files:" >> $GITHUB_STEP_SUMMARY
+        find generated -name "*.go" | while read file; do
+          echo "- \`$file\`" >> $GITHUB_STEP_SUMMARY
+        done
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Target Repository:" >> $GITHUB_STEP_SUMMARY
+        echo "[gp16-hub/gp-test-proto-code](https://github.com/gp16-hub/gp-test-proto-code)" >> $GITHUB_STEP_SUMMARY
