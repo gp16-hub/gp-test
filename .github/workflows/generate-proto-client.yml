@@ -108,40 +108,40 @@ jobs:
         cp -r generated/* target-repo/
         
         # 创建 README
-        cat > target-repo/README.md << 'EOF'
-# Proto Client Code
-
-This repository contains auto-generated Go client code from proto files.
-
-## Generated from
-- Repository: gp16-hub/gp-test
-- Branch: ${{ github.ref_name }}
-- Commit: ${{ github.sha }}
-
-## Last Updated
-${{ github.event.head_commit.timestamp }}
-
-## Structure
-```
-.
-├── box/           # Box service client
-├── external/      # External service client  
-├── promotion/     # Promotion service client
-├── tax/          # Tax service client
-├── user/         # User service client
-└── go.mod        # Go module file
-```
-
-## Usage
-
-```go
-import (
-    "github.com/gp16-hub/gp-test-proto-code/user/core"
-    "github.com/gp16-hub/gp-test-proto-code/box/core"
-    // ... other imports
-)
-```
-EOF
+        cat > target-repo/README.md << EOF
+        # Proto Client Code
+        
+        This repository contains auto-generated Go client code from proto files.
+        
+        ## Generated from
+        - Repository: gp16-hub/gp-test
+        - Branch: \${{ github.ref_name }}
+        - Commit: \${{ github.sha }}
+        
+        ## Last Updated
+        \${{ github.event.head_commit.timestamp }}
+        
+        ## Structure
+        \`\`\`
+        .
+        ├── box/           # Box service client
+        ├── external/      # External service client  
+        ├── promotion/     # Promotion service client
+        ├── tax/          # Tax service client
+        ├── user/         # User service client
+        └── go.mod        # Go module file
+        \`\`\`
+        
+        ## Usage
+        
+        \`\`\`go
+        import (
+            "github.com/gp16-hub/gp-test-proto-code/user/core"
+            "github.com/gp16-hub/gp-test-proto-code/box/core"
+            // ... other imports
+        )
+        \`\`\`
+        EOF
 
     - name: Commit and push changes
       run: |
